@@ -1,0 +1,315 @@
+/* Hace que el tamaño incluya bordes y relleno */
+* {
+  box-sizing: border-box;
+}
+
+/* ESTILO GENERAL DE LA PÁGINA */
+body {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+
+  /* Fondo oscuro con tonos azules y violetas */
+  background-color: #172554;
+  background-image: linear-gradient(135deg, #172554, #312E81);
+
+  /* Color del texto general */
+  color: #FFFFFF;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+  text-align: center;
+  padding: 40px 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* TAMAÑO ESPECÍFICO DEL FORMULARIO DE LOGIN */
+.login-form-card {
+  max-width: 450px;
+  margin: 0 auto;
+  grid-template-columns: 1fr !important;
+}
+
+/* TÍTULO Y TEXTO DE CABECERA */
+.header h1 {
+  margin-bottom: 10px;
+  color: #FFFFFF;
+}
+
+.header p {
+  color: #CBD5E1;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+/* TARJETA DEL FORMULARIO */
+.login-card {
+  /* Fondo azul oscuro ligeramente transparente */
+  background-color: rgba(255, 255, 255, 0.08);
+
+  padding: 35px;
+  border-radius: 15px;
+
+  /* Sombra suave alrededor de la tarjeta */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+
+  /* Borde claro y discreto */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* Dos columnas para el formulario de registro */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  text-align: left;
+}
+
+/* CAMPOS QUE OCUPAN TODO EL ANCHO */
+.full-width {
+  grid-column: span 2;
+}
+
+/* En el login, los campos ocupan una sola columna */
+.login-form-card .full-width {
+  grid-column: span 1;
+}
+
+/* ORGANIZACIÓN DE LOS CAMPOS */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TEXTOS DE LOS CAMPOS */
+.field span {
+  font-size: 0.85rem;
+  color: #E0E7FF;
+  margin-bottom: 6px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* CAMPOS DE TEXTO Y LISTAS DESPLEGABLES */
+.field input,
+.field select {
+  padding: 12px 15px;
+  border-radius: 8px;
+
+  /* Fondo oscuro y borde suave */
+  background-color: #1E293B;
+  border: 1px solid #475569;
+
+  color: #FFFFFF;
+  font-size: 1rem;
+  outline: none;
+
+  /* Cambio de color suave */
+  transition: border-color 0.3s;
+}
+
+/* COLOR DEL TEXTO DE AYUDA */
+.field input::placeholder {
+  color: #94A3B8;
+}
+
+/* COLOR DEL BORDE AL SELECCIONAR UN CAMPO */
+.field input:focus,
+.field select:focus {
+  border-color: #A78BFA;
+}
+
+/* COLOR DE LAS OPCIONES DE LAS LISTAS */
+.field select option {
+  background-color: #1E293B;
+  color: #FFFFFF;
+}
+
+/* GRUPO DEL TELÉFONO */
+.phone-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* Tamaño del selector del prefijo */
+.phone-group select {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+/* El campo del teléfono ocupa el espacio restante */
+.phone-group input {
+  flex: 1 1 auto;
+}
+
+/* CAMPOS DEL LOGIN CON ICONOS */
+.input-row {
+  display: flex;
+  align-items: center;
+  background-color: #1E293B;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 0 15px;
+}
+
+/* Cambia el borde al seleccionar el campo */
+.input-row:focus-within {
+  border-color: #A78BFA;
+}
+
+/* COLOR DE LOS ICONOS */
+.input-row .icon {
+  font-size: 1.2rem;
+  margin-right: 10px;
+  color: #A78BFA;
+}
+
+/* CAMPO DE TEXTO DEL LOGIN */
+.input-row input {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 15px 0;
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* TEXTO DE AYUDA DEL LOGIN */
+.input-row input::placeholder {
+  color: #94A3B8;
+}
+
+/* OPCIONES DE LOGIN */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+/* OPCIÓN PARA RECORDAR AL USUARIO */
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #CBD5E1;
+  cursor: pointer;
+}
+
+/* COLOR DE LA CASILLA */
+.remember input[type="checkbox"] {
+  accent-color: #8B5CF6;
+  cursor: pointer;
+}
+
+/* ENLACE PARA RECUPERAR LA CONTRASEÑA */
+.forgot-link {
+  color: #A78BFA;
+  text-decoration: none;
+}
+
+/* Color del enlace al pasar el ratón */
+.forgot-link:hover {
+  color: #5EEAD4;
+  text-decoration: underline;
+}
+
+/* ORGANIZACIÓN DE LOS BOTONES */
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Los botones del login aparecen en columna */
+.login-form-card .buttons {
+  flex-direction: column;
+}
+
+/* ESTILO GENERAL DE LOS BOTONES */
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}
+
+/* BOTÓN PRINCIPAL: REGISTRO O INICIO DE SESIÓN */
+.btn-primary {
+  background-color: #8B5CF6;
+  color: #FFFFFF;
+  border: 2px solid #8B5CF6;
+}
+
+/* El botón se oscurece al pasar el ratón */
+.btn-primary:hover {
+  background-color: #7C3AED;
+  border-color: #7C3AED;
+}
+
+/* BOTÓN SECUNDARIO */
+.btn-secondary {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 2px solid #A78BFA;
+}
+
+/* El botón secundario cambia a turquesa */
+.btn-secondary:hover {
+  background-color: #0F766E;
+  border-color: #5EEAD4;
+}
+
+/* TAMAÑO DE LOS BOTONES EN REGISTRO */
+@media (min-width: 701px) {
+  .register-card .buttons .btn {
+    width: auto;
+  }
+}
+
+/* ADAPTACIÓN A MÓVILES */
+@media (max-width: 700px) {
+  /* Los campos pasan a una sola columna */
+  .login-card {
+    grid-template-columns: 1fr;
+    padding: 25px 20px;
+  }
+
+  /* Los campos ocupan todo el ancho */
+  .full-width {
+    grid-column: span 1;
+  }
+
+  /* Los botones se colocan uno debajo del otro */
+  .buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  /* Las opciones del login también se apilan */
+  .options {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+}
+
