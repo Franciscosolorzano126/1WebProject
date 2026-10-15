@@ -27,17 +27,18 @@
                 <!-- Contraseña con Icono -->
                 <label class="input-row">
                     <span class="icon">🔒</span>
-                    <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
+                    <div class="password-container">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Password"
+                                autocomplete="new-password"
+                                required
+                                >
+                            <span class="eye">👁</span>
+                        </div>
                 </label>
-
-                <!-- Opciones (Recordarme y Olvidé Contraseña) -->
-                <div class="options">
-                    <label class="remember">
-                        <input type="checkbox" name="remember">
-                        <span>Remember me</span>
-                    </label>
-                    <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
-                </div>
 
                 <!-- Botones -->
                 <div class="buttons full-width">
