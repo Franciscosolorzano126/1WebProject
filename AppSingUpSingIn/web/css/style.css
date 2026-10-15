@@ -316,4 +316,22 @@ body {
         align-items: flex-start;
     }
 }
+.password-container {
+    position: relative;
+    width: 100%;
+}
 
+.password-container input {
+    width: 100%;
+    padding-right: 45px;
+    box-sizing: border-box;
+}
+
+.password-container .eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 17px;
+    cursor: pointer;
+}
