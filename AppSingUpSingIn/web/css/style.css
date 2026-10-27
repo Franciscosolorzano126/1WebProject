@@ -1,337 +1,559 @@
-/* Hace que el tamaño incluya bordes y relleno */
+/* =========================================================
+   1. AJUSTES GENERALES
+   ========================================================= */
+
+/* Incluye padding y bordes en el cálculo del tamaño */
 * {
+    /* Hace que el ancho y alto incluyan también el relleno y los bordes. */
     box-sizing: border-box;
 }
 
-/* ESTILO GENERAL DE LA PÁGINA */
+/* Fondo, tipografía y alineación general */
 body {
+    /* Usa una tipografía sans serif, sencilla y legible. */
     font-family: sans-serif;
+    /* Coloca el prefijo y el número en una fila flexible. */
     display: flex;
+    /* Centra los botones horizontalmente. */
     justify-content: center;
+    /* Alinea los elementos en el eje transversal. */
     align-items: center;
+    /* Hace que el cuerpo tenga como mínimo la altura visible de la ventana. */
     min-height: 100vh;
+    /* Elimina el margen predeterminado del navegador. */
     margin: 0;
+    /* Añade espacio interior alrededor del contenido. */
     padding: 20px;
-
-    /* Fondo oscuro con tonos azules y violetas */
+    /* Define el color base azul oscuro del fondo. */
     background-color: #172554;
+    /* Crea un degradado diagonal entre azul y violeta. */
     background-image: linear-gradient(135deg, #172554, #312E81);
-
-    /* Color del texto general */
+    /* Establece el color del texto en blanco. */
     color: #FFFFFF;
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* Contenedor de cada página */
 .container {
+    /* Centra horizontalmente el texto. */
     text-align: center;
+    /* Añade espacio interior: 40px arriba/abajo y 20px a los lados. */
     padding: 40px 20px;
+    /* Hace que el selector ocupe todo el ancho disponible. */
     width: 100%;
-    max-width: 800px;
-}
-
-/* TAMAÑO ESPECÍFICO DEL FORMULARIO DE LOGIN */
-.login-form-card {
-    max-width: 450px;
+    /* Evita que el contenedor sea demasiado ancho en pantallas grandes. */
+    max-width: 1100px;
+    /* Centra el elemento horizontalmente con márgenes automáticos. */
     margin: 0 auto;
-    grid-template-columns: 1fr !important;
 }
 
-/* TÍTULO Y TEXTO DE CABECERA */
+/* =========================================================
+   2. CABECERA
+   ========================================================= */
+
 .header h1 {
+    /* Deja espacio debajo de las opciones del login. */
     margin-bottom: 10px;
+    /* Establece el color del texto en blanco. */
     color: #FFFFFF;
 }
 
 .header p {
     color: #CBD5E1;
+    /* Deja espacio debajo del texto de cabecera. */
     margin-bottom: 30px;
+    /* Ajusta el tamaño del texto relativo al tamaño base. */
     font-size: 1.1rem;
 }
 
-/* TARJETA DEL FORMULARIO */
+/* =========================================================
+   3. TARJETAS Y DISTRIBUCIÓN DE FORMULARIOS
+   ========================================================= */
+
 .login-card {
-    /* Fondo azul oscuro ligeramente transparente */
+    /* Aplica un fondo blanco muy transparente a la tarjeta. */
     background-color: rgba(255, 255, 255, 0.08);
-
+    /* Crea espacio interior dentro de la tarjeta. */
     padding: 35px;
+    /* Redondea las esquinas de la tarjeta. */
     border-radius: 15px;
-
-    /* Sombra suave alrededor de la tarjeta */
+    /* Añade una sombra suave debajo y alrededor de la tarjeta. */
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-
-    /* Borde claro y discreto */
+    /* Dibuja un borde blanco semitransparente y discreto. */
     border: 1px solid rgba(255, 255, 255, 0.15);
-
-    /* Dos columnas para el formulario de registro */
+    /* Activa CSS Grid para distribuir campos en filas y columnas. */
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* Organiza el formulario en dos columnas iguales. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* Establece 20px de separación entre filas y columnas. */
     gap: 20px;
+    /* Alinea el texto a la izquierda. */
     text-align: left;
+    /* Hace que el selector ocupe todo el ancho disponible. */
+    width: 100%;
 }
 
-/* CAMPOS QUE OCUPAN TODO EL ANCHO */
+/* El formulario de inicio de sesión es más estrecho y usa una columna */
+.login-form-card {
+    max-width: 450px;
+    /* Centra el elemento horizontalmente con márgenes automáticos. */
+    margin: 0 auto;
+    /* Organiza el formulario en una columna. */
+    grid-template-columns: minmax(0, 1fr);
+}
+
+/* Campos que deben ocupar todo el ancho del formulario */
 .full-width {
-    grid-column: span 2;
+    /* Hace que el campo abarque todas las columnas disponibles. */
+    grid-column: 1 / -1;
 }
 
-/* En el login, los campos ocupan una sola columna */
-.login-form-card .full-width {
-    grid-column: span 1;
-}
+/* =========================================================
+   4. CAMPOS DEL FORMULARIO DE REGISTRO
+   ========================================================= */
 
-/* ORGANIZACIÓN DE LOS CAMPOS */
+/* Etiqueta y control en columna */
 .field {
+    /* Coloca el prefijo y el número en una fila flexible. */
     display: flex;
+    /* Coloca los elementos uno debajo de otro. */
     flex-direction: column;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
+    min-width: 0;
 }
 
-/* TEXTOS DE LOS CAMPOS */
-.field span {
+/* Etiquetas de los campos */
+.field > span {
+    /* Define un tamaño de texto ligeramente menor que el estándar. */
     font-size: 0.85rem;
+    /* Da a las etiquetas un tono blanco azulado. */
     color: #E0E7FF;
+    /* Separa la etiqueta del campo que describe. */
     margin-bottom: 6px;
+    /* Da un grosor medio al texto. */
     font-weight: 500;
+    /* Muestra las etiquetas en mayúsculas. */
     text-transform: uppercase;
+    /* Añade una pequeña separación entre letras. */
     letter-spacing: 0.5px;
 }
 
-/* CAMPOS DE TEXTO Y LISTAS DESPLEGABLES */
+/* Inputs y selectores normales */
 .field input,
 .field select {
+    /* Hace que el selector ocupe todo el ancho disponible. */
+    width: 100%;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
+    min-width: 0;
+    /* Añade espacio interior al selector. */
     padding: 12px 15px;
+    /* Redondea las esquinas del campo. */
     border-radius: 8px;
-
-    /* Fondo oscuro y borde suave */
+    /* Mantiene el desplegable con fondo azul oscuro. */
     background-color: #1E293B;
+    /* Añade un borde gris azulado de 1px. */
     border: 1px solid #475569;
-
+    /* Establece el color del texto en blanco. */
     color: #FFFFFF;
+    /* Mantiene un tamaño de texto legible. */
     font-size: 1rem;
+    /* Quita el contorno predeterminado del navegador. El foco se indica con el borde. */
     outline: none;
-
-    /* Cambio de color suave */
+    /* Suaviza durante 0,3 segundos el cambio de color del borde. */
     transition: border-color 0.3s;
 }
 
-/* COLOR DEL TEXTO DE AYUDA */
+/* Texto de ayuda dentro de los inputs */
 .field input::placeholder {
+    /* Muestra el texto de ayuda en gris azulado. */
     color: #94A3B8;
 }
 
-/* COLOR DEL BORDE AL SELECCIONAR UN CAMPO */
+/* Estado de foco de los campos */
 .field input:focus,
 .field select:focus {
+    /* Cambia el borde a violeta cuando el campo está enfocado. */
     border-color: #A78BFA;
 }
 
-/* COLOR DE LAS OPCIONES DE LAS LISTAS */
+/* Opciones de las listas desplegables normales */
 .field select option {
+    /* Mantiene el desplegable con fondo azul oscuro. */
     background-color: #1E293B;
+    /* Establece el color del texto en blanco. */
     color: #FFFFFF;
 }
 
-/* GRUPO DEL TELÉFONO */
+/* =========================================================
+   5. TELÉFONO Y PREFIJO INTERNACIONAL
+   Mantener esta sección separada para modificar solo el prefijo.
+   ========================================================= */
+
+/* Grupo que contiene el prefijo y el número */
 .phone-group {
+    /* Coloca el prefijo y el número en una fila flexible. */
     display: flex;
+    /* Deja 10px de separación entre el selector y el teléfono. */
     gap: 10px;
+    /* Hace que el selector ocupe todo el ancho disponible. */
     width: 100%;
-
+    /* Permite que el elemento se encoja y evita desbordamientos. */
+    min-width: 0;
 }
 
-/* Tamaño del selector del prefijo */
+/* Selector del prefijo: mismos colores que los campos del formulario */
 .phone-group select {
+    /* Conserva la apariencia nativa del selector del navegador. */
+    appearance: auto;
+    /* Conserva la apariencia nativa en navegadores WebKit. */
+    -webkit-appearance: auto;
+    /* Conserva la apariencia nativa en navegadores Firefox. */
+    -moz-appearance: auto;
+    /* Mantiene el selector del prefijo con un ancho base de 125px. */
     flex: 0 0 125px;
+    /* Define el ancho del selector de prefijo. */
     width: 125px;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
     min-width: 0;
-}
-
-/* El campo del teléfono ocupa el espacio restante */
-.phone-group input {
-    flex: 1;
-    min-width: 0;
-}
-
-/* CAMPOS DEL LOGIN CON ICONOS */
-.input-row {
-    display: flex;
-    align-items: center;
-    background-color: #1E293B;
-    border: 1px solid #475569;
+    /* Añade espacio interior al selector. */
+    padding: 12px 15px;
+    /* Redondea las esquinas del campo. */
     border-radius: 8px;
-    padding: 0 15px;
+    /* Mantiene el desplegable con fondo azul oscuro. */
+    background-color: #1E293B;
+    /* Añade un borde gris azulado de 1px. */
+    border: 1px solid #475569;
+    /* Establece el color del texto en blanco. */
+    color: #FFFFFF;
+    /* Usa la misma tipografía que el resto del formulario. */
+    font-family: inherit;
+    /* Mantiene un tamaño de texto legible. */
+    font-size: 1rem;
+    /* Quita el contorno predeterminado del navegador. El foco se indica con el borde. */
+    outline: none;
+    /* Muestra el cursor de mano para indicar que se puede interactuar. */
+    cursor: pointer;
 }
 
-/* Cambia el borde al seleccionar el campo */
-.input-row:focus-within {
+/* Borde violeta al seleccionar el prefijo */
+.phone-group select:focus {
+    /* Cambia el borde a violeta cuando el campo está enfocado. */
     border-color: #A78BFA;
 }
 
-/* COLOR DE LOS ICONOS */
+/* Fondo y texto de las opciones del prefijo */
+.phone-group select option {
+    /* Mantiene el desplegable con fondo azul oscuro. */
+    background-color: #1E293B;
+    /* Establece el color del texto en blanco. */
+    color: #FFFFFF;
+}
+
+/* El número ocupa el espacio restante */
+.phone-group input {
+    /* Permite que el campo de texto ocupe el espacio restante. */
+    flex: 1 1 auto;
+    /* Hace que el selector ocupe todo el ancho disponible. */
+    width: 100%;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
+    min-width: 0;
+}
+
+/* =========================================================
+   6. CAMPOS DEL INICIO DE SESIÓN CON ICONOS
+   ========================================================= */
+
+/* Fila que contiene icono y campo */
+.input-row {
+    /* Coloca el prefijo y el número en una fila flexible. */
+    display: flex;
+    /* Alinea los elementos en el eje transversal. */
+    align-items: center;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
+    min-width: 0;
+    /* Mantiene el desplegable con fondo azul oscuro. */
+    background-color: #1E293B;
+    /* Añade un borde gris azulado de 1px. */
+    border: 1px solid #475569;
+    /* Redondea las esquinas del campo. */
+    border-radius: 8px;
+    /* Añade espacio horizontal dentro de la fila de entrada. */
+    padding: 0 15px;
+}
+
+/* Borde de la fila al seleccionar su input */
+.input-row:focus-within {
+    /* Cambia el borde a violeta cuando el campo está enfocado. */
+    border-color: #A78BFA;
+}
+
+/* Iconos del inicio de sesión */
 .input-row .icon {
+    /* Mantiene el icono con su tamaño natural, sin encogerlo. */
+    flex: 0 0 auto;
+    /* Aumenta ligeramente el tamaño del icono. */
     font-size: 1.2rem;
+    /* Separa el icono del campo de texto. */
     margin-right: 10px;
     color: #A78BFA;
 }
 
-/* CAMPO DE TEXTO DEL LOGIN */
+/* Inputs del inicio de sesión */
 .input-row input {
-    flex-grow: 1;
+    /* Permite que el campo de texto ocupe el espacio restante. */
+    flex: 1 1 auto;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
     min-width: 0;
+    /* Hace que el selector ocupe todo el ancho disponible. */
+    width: 100%;
+    /* Añade espacio vertical al campo sin espacio horizontal extra. */
     padding: 15px 0;
+    /* Deja visible el fondo del contenedor que hay detrás. */
     background: transparent;
+    /* Elimina el borde base antes de aplicar el estilo de cada botón. */
     border: none;
+    /* Establece el color del texto en blanco. */
     color: #FFFFFF;
+    /* Mantiene un tamaño de texto legible. */
     font-size: 1rem;
+    /* Quita el contorno predeterminado del navegador. El foco se indica con el borde. */
     outline: none;
 }
 
-/* TEXTO DE AYUDA DEL LOGIN */
+/* Texto de ayuda de los inputs del login */
 .input-row input::placeholder {
+    /* Muestra el texto de ayuda en gris azulado. */
     color: #94A3B8;
 }
 
-/* OPCIONES DE LOGIN */
-.options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-}
+/* =========================================================
+   7. CONTRASEÑAS
+   ========================================================= */
 
-/* OPCIÓN PARA RECORDAR AL USUARIO */
-.remember {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #CBD5E1;
-    cursor: pointer;
-}
-
-/* COLOR DE LA CASILLA */
-.remember input[type="checkbox"] {
-    accent-color: #8B5CF6;
-    cursor: pointer;
-}
-
-/* ENLACE PARA RECUPERAR LA CONTRASEÑA */
-.forgot-link {
-    color: #A78BFA;
-    text-decoration: none;
-}
-
-/* Color del enlace al pasar el ratón */
-.forgot-link:hover {
-    color: #5EEAD4;
-    text-decoration: underline;
-}
-
-/* ORGANIZACIÓN DE LOS BOTONES */
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-/* Los botones del login aparecen en columna */
-.login-form-card .buttons {
-    flex-direction: column;
-}
-
-/* ESTILO GENERAL DE LOS BOTONES */
-.btn {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    text-decoration: none;
-    text-align: center;
-    width: 100%;
-}
-
-/* BOTÓN PRINCIPAL: REGISTRO O INICIO DE SESIÓN */
-.btn-primary {
-    background-color: #8B5CF6;
-    color: #FFFFFF;
-    border: 2px solid #8B5CF6;
-}
-
-/* El botón se oscurece al pasar el ratón */
-.btn-primary:hover {
-    background-color: #7C3AED;
-    border-color: #7C3AED;
-}
-
-/* BOTÓN SECUNDARIO */
-.btn-secondary {
-    background-color: transparent;
-    color: #FFFFFF;
-    border: 2px solid #A78BFA;
-}
-
-/* El botón secundario cambia a turquesa */
-.btn-secondary:hover {
-    background-color: #0F766E;
-    border-color: #5EEAD4;
-}
-
-/* TAMAÑO DE LOS BOTONES EN REGISTRO */
-@media (min-width: 701px) {
-    .register-card .buttons .btn {
-        width: auto;
-    }
-}
-
-/* ADAPTACIÓN A MÓVILES */
-@media (max-width: 700px) {
-    /* Los campos pasan a una sola columna */
-    .login-card {
-        grid-template-columns: 1fr;
-        padding: 25px 20px;
-    }
-
-    /* Los campos ocupan todo el ancho */
-    .full-width {
-        grid-column: span 1;
-    }
-
-    /* Los botones se colocan uno debajo del otro */
-    .buttons {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 100%;
-    }
-
-    /* Las opciones del login también se apilan */
-    .options {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
-}
+/* Contenedor del input y el icono para mostrar contraseña */
 .password-container {
     position: relative;
+    /* Hace que el selector ocupe todo el ancho disponible. */
     width: 100%;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
+    min-width: 0;
 }
 
+/* Deja espacio a la derecha para el icono */
 .password-container input {
+    /* Hace que el selector ocupe todo el ancho disponible. */
     width: 100%;
+    /* Permite que el elemento se encoja y evita desbordamientos. */
+    min-width: 0;
     padding-right: 45px;
-    box-sizing: border-box;
 }
 
+/* Posición del icono de contraseña */
 .password-container .eye {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 17px;
+    /* Muestra el cursor de mano para indicar que se puede interactuar. */
     cursor: pointer;
+}
+
+/* =========================================================
+   8. OPCIONES DEL LOGIN
+   ========================================================= */
+
+.options {
+    /* Coloca el prefijo y el número en una fila flexible. */
+    display: flex;
+    /* Coloca los elementos en extremos opuestos del contenedor. */
+    justify-content: space-between;
+    /* Alinea los elementos en el eje transversal. */
+    align-items: center;
+    /* Usa un tamaño de texto ligeramente reducido. */
+    font-size: 0.9rem;
+    /* Deja espacio debajo de las opciones del login. */
+    margin-bottom: 10px;
+}
+
+.remember {
+    /* Coloca el prefijo y el número en una fila flexible. */
+    display: flex;
+    /* Alinea los elementos en el eje transversal. */
+    align-items: center;
+    /* Separa los elementos por 8px. */
+    gap: 8px;
+    color: #CBD5E1;
+    /* Muestra el cursor de mano para indicar que se puede interactuar. */
+    cursor: pointer;
+}
+
+.remember input[type="checkbox"] {
+    /* Colorea la casilla de selección en violeta. */
+    accent-color: #8B5CF6;
+    /* Muestra el cursor de mano para indicar que se puede interactuar. */
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: #A78BFA;
+    /* Quita el subrayado predeterminado del enlace. */
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    /* Cambia el enlace a turquesa al pasar el ratón. */
+    color: #5EEAD4;
+    /* Subraya el enlace al pasar el ratón. */
+    text-decoration: underline;
+}
+
+/* =========================================================
+   9. BOTONES Y ENLACES CON ASPECTO DE BOTÓN
+   ========================================================= */
+
+.buttons {
+    /* Coloca el prefijo y el número en una fila flexible. */
+    display: flex;
+    /* Centra los botones horizontalmente. */
+    justify-content: center;
+    /* Alinea los elementos en el eje transversal. */
+    align-items: center;
+    /* Deja separación entre los botones. */
+    gap: 15px;
+    /* Separa los botones del contenido anterior. */
+    margin-top: 15px;
+}
+
+/* Los botones del login aparecen en columna */
+.login-form-card .buttons {
+    /* Coloca los elementos uno debajo de otro. */
+    flex-direction: column;
+}
+
+.btn {
+    /* Permite que el enlace tenga dimensiones y padding como un botón. */
+    display: inline-block;
+    /* Define el espacio interior de los botones. */
+    padding: 12px 25px;
+    /* Elimina el borde base antes de aplicar el estilo de cada botón. */
+    border: none;
+    /* Da a los botones esquinas redondeadas tipo píldora. */
+    border-radius: 25px;
+    /* Muestra el cursor de mano para indicar que se puede interactuar. */
+    cursor: pointer;
+    /* Define el tamaño de texto de los botones. */
+    font-size: 16px;
+    /* Hace que el texto del botón sea negrita. */
+    font-weight: bold;
+    /* Anima suavemente el cambio de fondo al pasar el ratón. */
+    transition: background-color 0.3s;
+    /* Quita el subrayado predeterminado del enlace. */
+    text-decoration: none;
+    /* Centra horizontalmente el texto. */
+    text-align: center;
+    /* Hace que el selector ocupe todo el ancho disponible. */
+    width: 100%;
+}
+
+.btn-primary {
+    /* Fondo violeta del botón principal. */
+    background-color: #8B5CF6;
+    /* Establece el color del texto en blanco. */
+    color: #FFFFFF;
+    /* Borde violeta del botón principal. */
+    border: 2px solid #8B5CF6;
+}
+
+.btn-primary:hover {
+    /* Oscurece el botón principal al pasar el ratón. */
+    background-color: #7C3AED;
+    /* Hace coincidir el borde con el fondo en hover. */
+    border-color: #7C3AED;
+}
+
+.btn-secondary {
+    /* Deja transparente el fondo del botón secundario. */
+    background-color: transparent;
+    /* Establece el color del texto en blanco. */
+    color: #FFFFFF;
+    /* Dibuja el borde violeta del botón secundario. */
+    border: 2px solid #A78BFA;
+}
+
+.btn-secondary:hover {
+    /* Cambia el fondo del botón secundario al pasar el ratón. */
+    background-color: #0F766E;
+    /* Cambia el borde a turquesa al pasar el ratón. */
+    border-color: #5EEAD4;
+}
+
+/* =========================================================
+   10. ADAPTACIÓN RESPONSIVE
+   ========================================================= */
+
+/* En pantallas grandes, los botones de registro se ajustan a su contenido */
+@media (min-width: 701px) {
+    .register-card .buttons .btn {
+    /* Deja que el ancho del botón dependa de su contenido. */
+        width: auto;
+    }
+}
+
+/* En tabletas y móviles, los campos pasan a una columna */
+@media (max-width: 700px) {
+    body {
+    /* Alinea el contenido al inicio del eje transversal. */
+        align-items: flex-start;
+    }
+
+    .container {
+    /* Añade espacio interior vertical y horizontal en pantallas pequeñas. */
+        padding: 24px 12px;
+    }
+
+    .login-card {
+    /* Organiza el formulario en una columna. */
+        grid-template-columns: minmax(0, 1fr);
+    /* Añade espacio interior para pantallas pequeñas. */
+        padding: 25px 20px;
+    }
+
+    .full-width {
+    /* Hace que el campo abarque todas las columnas disponibles. */
+        grid-column: 1 / -1;
+    }
+
+    .buttons {
+    /* Coloca los elementos uno debajo de otro. */
+        flex-direction: column;
+    }
+
+    .btn {
+    /* Hace que el selector ocupe todo el ancho disponible. */
+        width: 100%;
+    }
+
+    .options {
+    /* Coloca los elementos uno debajo de otro. */
+        flex-direction: column;
+    /* Deja separación entre los botones. */
+        gap: 15px;
+    /* Alinea el contenido al inicio del eje transversal. */
+        align-items: flex-start;
+    }
+}
+
+/* En móviles muy estrechos, el prefijo se coloca encima del número */
+@media (max-width: 320px) {
+    .phone-group {
+    /* Permite que los elementos bajen a otra línea si no caben. */
+        flex-wrap: wrap;
+    }
+
+    .phone-group select {
+    /* Permite que el prefijo ocupe una línea completa en móviles muy estrechos. */
+        flex: 1 1 100%;
+    /* Hace que el selector ocupe todo el ancho disponible. */
+        width: 100%;
+    }
 }
