@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,6 +9,7 @@
 </head>
 <body>
     <main class="container">
+
         <!-- Cabecera -->
         <div class="header">
             <h1>USER LOGIN</h1>
@@ -16,42 +18,53 @@
 
         <!-- Formulario -->
         <section class="login-shell">
-            <form class="login-card login-form-card" action="#" method="post">
-                
-                <!-- Correo Electrónico con Icono -->
+            <form id="loginForm" class="login-card login-form-card" action="#" method="post">
+
+                <!-- Correo Electrónico -->
                 <label class="input-row">
-                    <span class="icon">👤</span>
-                    <input type="email" name="email" placeholder="Email ID" autocomplete="email" required>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Email ID"
+                        autocomplete="email"
+                        required
+                    >
                 </label>
 
-                <!-- Contraseña con Icono -->
+                <!-- Contraseña -->
                 <label class="input-row">
-                    <span class="icon">🔒</span>
                     <div class="password-container">
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                placeholder="Password"
-                                autocomplete="new-password"
-                                required
-                                >
-                            <span class="eye" aria-hidden="true">👁</span>
-                        </div>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <span id="passwordToggle" class="eye">👁</span>
+                    </div>
                 </label>
+
+                <div id="successMessage" style="display: none;"></div>
 
                 <!-- Botones -->
                 <div class="buttons full-width">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary login-btn">
                         LOGIN
                     </button>
+
                     <a class="btn btn-secondary" href="signUp.html">
                         REGISTER
                     </a>
                 </div>
-                
+
             </form>
         </section>
     </main>
+
+    <script type="module" src="../js/signIn.js"></script>
 </body>
 </html>
