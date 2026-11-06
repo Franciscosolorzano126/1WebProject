@@ -1,29 +1,29 @@
-class User{
+class User {
     constructor(id,
-                firstName,
-                lastName,
-                middleIntial,
-                street
-                ,city
-                ,state
-                ,zip
-                ,phone,
-                email,
-                password){
-        this.id=id;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.middleIntial=middleIntial;
-        this.street=street;
-        this.city=city;
-        this.state=state;
-        this.zip=zip;
-        this.phone=phone;
-        this.email=email;
-        this.password=password;
+            firstName,
+            lastName,
+            middleIntial,
+            street
+            , city
+            , state
+            , zip
+            , phone,
+            email,
+            password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleIntial = middleIntial;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
     }
-    
-    static fromJSON(json){
+
+    static fromJSON(json) {
         return new User(
                 json.id,
                 json.firstName,
@@ -37,7 +37,6 @@ class User{
                 json.email,
                 json.password);
     }
-    
-    
 }
+
 export { User };
