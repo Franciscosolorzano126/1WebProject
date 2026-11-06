@@ -8,18 +8,26 @@
 
     <title>SignUpSignIn - Login</title>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Font Awesome para el icono del ojo -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
     <main class="container">
 
+        <!-- CABECERA -->
         <div class="header">
             <h1>USER LOGIN</h1>
             <p>Welcome back! Please enter your details.</p>
         </div>
 
+        <!-- FORMULARIO -->
         <section class="login-shell">
 
             <form id="loginForm"
@@ -27,8 +35,11 @@
                   action="#"
                   method="post">
 
+                <!-- EMAIL -->
                 <div class="field-wrapper">
-                    <label class="input-row">
+
+                    <label class="input-row" for="email">
+
                         <input
                             type="email"
                             id="email"
@@ -37,13 +48,20 @@
                             autocomplete="email"
                             required
                         >
+
                     </label>
 
-                    <div id="emailError" class="error-message" style="display: none;"></div>
+                    <div id="emailError"
+                         class="error-message"
+                         style="display: none;">
+                    </div>
+
                 </div>
 
+                <!-- PASSWORD -->
                 <div class="field-wrapper">
-                    <label class="input-row">
+
+                    <div class="input-row">
 
                         <div class="password-container">
 
@@ -60,30 +78,42 @@
                                 type="button"
                                 id="passwordToggle"
                                 class="eye"
-                                aria-label="Show password"
-                                title="Show password"
+                                aria-label="Mostrar contraseña"
+                                title="Mostrar contraseña"
+                                aria-pressed="false"
                             >
+
                                 <i class="fa-solid fa-eye"></i>
+
                             </button>
 
                         </div>
 
-                    </label>
+                    </div>
 
-                    <div id="passwordError" class="error-message" style="display: none;"></div>
+                    <div id="passwordError"
+                         class="error-message"
+                         style="display: none;">
+                    </div>
+
                 </div>
 
-                <div id="successMessage" class="error-message"
-                     style="display: none; color: #4ade80; border-color: #4ade80;">
+                <!-- MENSAJE DE ÉXITO -->
+                <div id="successMessage"
+                     class="error-message success-message"
+                     style="display: none;">
                 </div>
 
+                <!-- BOTONES -->
                 <div class="buttons full-width">
 
-                    <button type="submit" class="btn btn-primary login-btn">
+                    <button type="submit"
+                            class="btn btn-primary login-btn">
                         LOGIN
                     </button>
 
-                    <a class="btn btn-secondary" href="signUp.html">
+                    <a class="btn btn-secondary"
+                       href="signUp.html">
                         REGISTER
                     </a>
 
@@ -95,6 +125,7 @@
 
     </main>
 
+    <!-- JAVASCRIPT -->
     <script type="module" src="../js/signIn.js"></script>
 
 </body>
