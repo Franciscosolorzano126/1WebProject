@@ -22,7 +22,7 @@ class User{
         this.email=email;
         this.password=password;
     }
-    
+
     static fromJSON(json){
         return new User(
                 json.id,
@@ -37,7 +37,7 @@ class User{
                 json.email,
                 json.password);
     }
-    
-    
+
+
 }
 export { User };

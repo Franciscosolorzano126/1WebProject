@@ -1,57 +1,84 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SignUpSignIn - Login</title>
+
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
+
     <main class="container">
 
-        <!-- Cabecera -->
         <div class="header">
             <h1>USER LOGIN</h1>
             <p>Welcome back! Please enter your details.</p>
         </div>
 
-        <!-- Formulario -->
         <section class="login-shell">
-            <form id="loginForm" class="login-card login-form-card" action="#" method="post">
 
-                <!-- Correo Electrónico -->
-                <label class="input-row">
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Email ID"
-                        autocomplete="email"
-                        required
-                    >
-                </label>
+            <form id="loginForm"
+                  class="login-card login-form-card"
+                  action="#"
+                  method="post">
 
-                <!-- Contraseña -->
-                <label class="input-row">
-                    <div class="password-container">
+                <div class="field-wrapper">
+                    <label class="input-row">
                         <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Password"
-                            autocomplete="current-password"
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Email ID"
+                            autocomplete="email"
                             required
                         >
+                    </label>
 
-                        <span id="passwordToggle" class="eye">👁</span>
-                    </div>
-                </label>
+                    <div id="emailError" class="error-message" style="display: none;"></div>
+                </div>
 
-                <div id="successMessage" style="display: none;"></div>
+                <div class="field-wrapper">
+                    <label class="input-row">
 
-                <!-- Botones -->
+                        <div class="password-container">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="passwordToggle"
+                                class="eye"
+                                aria-label="Show password"
+                                title="Show password"
+                            >
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </label>
+
+                    <div id="passwordError" class="error-message" style="display: none;"></div>
+                </div>
+
+                <div id="successMessage" class="error-message"
+                     style="display: none; color: #4ade80; border-color: #4ade80;">
+                </div>
+
                 <div class="buttons full-width">
+
                     <button type="submit" class="btn btn-primary login-btn">
                         LOGIN
                     </button>
@@ -59,12 +86,16 @@
                     <a class="btn btn-secondary" href="signUp.html">
                         REGISTER
                     </a>
+
                 </div>
 
             </form>
+
         </section>
+
     </main>
 
     <script type="module" src="../js/signIn.js"></script>
+
 </body>
 </html>
