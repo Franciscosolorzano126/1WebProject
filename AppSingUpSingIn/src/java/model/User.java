@@ -1,26 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.math.BigInteger;
 
-/**
- *
- * @author madrid
- */
 @Entity
 @Table(name = "user")
 @XmlRootElement
@@ -36,48 +29,61 @@ import java.math.BigInteger;
     @NamedQuery(name = "User.findByMiddleInitial", query = "SELECT u FROM User u WHERE u.middleInitial = :middleInitial"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByState", query = "SELECT u FROM User u WHERE u.state = :state"),
-    @NamedQuery(name = "User.findByStreet", query = "SELECT u FROM User u WHERE u.street = :street")})
+    @NamedQuery(name = "User.findByStreet", query = "SELECT u FROM User u WHERE u.street = :street")
+})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Column(name = "zip")
     private Integer zip;
+
+    // Clave primaria generada automáticamente por MySQL.
     @Id
-    @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "phone")
     private BigInteger phone;
+
     @Size(max = 255)
     @Column(name = "city")
     private String city;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+
     @Size(max = 255)
     @Column(name = "email")
     private String email;
+
     @Size(max = 255)
     @Column(name = "firstName")
     private String firstName;
+
     @Size(max = 255)
     @Column(name = "lastName")
     private String lastName;
+
     @Size(max = 255)
     @Column(name = "middleInitial")
     private String middleInitial;
+
     @Size(max = 255)
     @Column(name = "password")
     private String password;
+
     @Size(max = 255)
     @Column(name = "state")
     private String state;
+
     @Size(max = 255)
     @Column(name = "street")
     private String street;
 
+    // Constructor vacío necesario para JPA.
     public User() {
     }
 
+    // Constructor con ID.
     public User(Long id) {
         this.id = id;
     }
@@ -179,20 +185,22 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof User)) {
             return false;
         }
+
         User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+
+        if ((this.id == null && other.id != null)
+                || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
+
         return true;
     }
 
     @Override
     public String toString() {
-        return "modelo.User[ id=" + id + " ]";
+        return "model.User[ id=" + id + " ]";
     }
-    
 }
