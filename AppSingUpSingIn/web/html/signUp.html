@@ -21,19 +21,31 @@
                     <!-- NOMBRE -->
                     <label class="field">
                         <span>First Name</span>
-                        <input type="text" id="firstName" name="firstName" placeholder="First name" autocomplete="given-name" required>
+                        <input type="text" 
+                               id="firstName" 
+                               name="firstName" 
+                               placeholder="First name" 
+                               autocomplete="given-name" 
+                               required
+                               >
+                        <!-- Aquí aparecerá el mensaje de validación -->
+                        <small class="error-message" id="firstNameError"></small>
                     </label>
 
                     <!-- APELLIDOS -->
                     <label class="field">
                         <span>Last Name</span>
                         <input type="text" id="lastName" name="lastName" placeholder="Last name" autocomplete="family-name" required>
+                        <small class="error-message" id="lastNameError"></small>
                     </label>
 
                     <!-- INICIAL DEL SEGUNDO NOMBRE -->
                     <label class="field">
                         <span>Middle Initial</span>
                         <input type="text" id="middleInitial" name="middleInitial" placeholder="Middle initial" maxlength="1">
+
+                        <!-- Espacio para mostrar posibles errores de validación. -->
+                        <small class="error-message" id="middleInitialError"></small>
                     </label>
 
                     <!-- TELÉFONO Y PREFIJO -->
@@ -59,6 +71,8 @@
                             </select>
                             <input type="tel" id="phone" name="phone" placeholder="Phone number" autocomplete="tel-national" required>
                         </div>
+                        <!-- Mensaje de error para la validación del teléfono. -->
+                        <small class="error-message" id="phoneError"></small>
                     </label>
 
                     <!-- CALLE (Ocupa 2 columnas) -->
@@ -136,7 +150,7 @@
                 </form>
             </section>
         </main>
-        
+
         <!-- Conectamos el archivo JavaScript del registro -->
         <script type="module" src="../js/signUp.js"></script>
 

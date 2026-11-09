@@ -8,12 +8,22 @@ class singUpController {
 
         // Recuperamos los campos personales.
         this.firstName = document.getElementById('firstName');
+        // Recuperamos el espacio donde mostraremos el error del nombre.
+        this.firstNameError = document.getElementById('firstNameError');
+
         this.lastName = document.getElementById('lastName');
+        // Recuperamos el elemento donde mostraremos el mensaje de error del apellido.
+        this.lastNameError = document.getElementById('lastNameError');
+
         this.middleInitial = document.getElementById('middleInitial');
+        // Recuperamos el elemento donde mostraremos el mensaje de error de Middle Initial.
+        this.middleInitialError = document.getElementById('middleInitialError');
 
         // Recuperamos los campos del teléfono.
         this.prefix = document.getElementById('prefix');
         this.phone = document.getElementById('phone');
+        // Recuperamos el elemento donde mostraremos el mensaje de error del teléfono.
+        this.phoneError = document.getElementById('phoneError');
 
         // Recuperamos los campos de dirección.
         this.street = document.getElementById('street');
@@ -47,7 +57,6 @@ class singUpController {
         // Cuando el usuario modifica un campo, eliminamos
         // el mensaje de error que pudiera tener.
         this.form.querySelectorAll('input, select').forEach((field) => {
-
             // Evento que se ejecuta al escribir en un campo.
             field.addEventListener('input', () => {
                 field.setCustomValidity('');
@@ -80,32 +89,70 @@ class singUpController {
         };
 
         // VALIDACIÓN DEL NOMBRE.
-        // Expresión regular que permite letras, espacios,
-        // guiones y apóstrofes.
-        const namePattern = /^[\p{L}\s'-]+$/u;
-
-        // Recuperamos el nombre eliminando espacios innecesarios.
+        // Recuperamos el nombre y eliminamos espacios sobrantes.
         const firstName = this.firstName.value.trim();
 
-        // Comprobamos que el nombre tenga un formato válido.
-        if (!namePattern.test(firstName)) {
-            setError(this.firstName, 'Introduce un nombre válido.');
+        // Expresión regular para permitir letras, espacios, guiones y apóstrofes.
+        const namePattern = /^[\p{L}\s'-]+$/u;
+
+        // Comprobamos si el nombre está vacío.
+        if (firstName === '') {
+            setError(this.firstName, 'Nombre obligatorio.');
+            this.firstNameError.textContent = 'Nombre obligatorio.';
+        }
+        // Comprobamos si contiene caracteres no permitidos.
+        else if (!namePattern.test(firstName)) {
+            setError(this.firstName, 'Introduzca solo letras y espacios.');
+            this.firstNameError.textContent = 'Introduzca solo letras y espacios.';
+        }
+        // Si es correcto, eliminamos el mensaje de error.
+        else {
+            this.firstName.setCustomValidity('');
+            this.firstNameError.textContent = '';
         }
 
         // VALIDACIÓN DE LOS APELLIDOS.
+        // Recuperamos el apellido y eliminamos los espacios sobrantes.
         const lastName = this.lastName.value.trim();
 
-        if (!namePattern.test(lastName)) {
-            setError(this.lastName, 'Introduce unos apellidos válidos.');
+        // Comprobamos si el apellido está vacío.
+        if (lastName === '') {
+            setError(this.lastName, 'Apellido obligatorio.');
+            // Mostramos el mensaje de error debajo del campo.
+            this.lastNameError.textContent = 'Apellido obligatorio.';
+        }
+
+        // Comprobamos si contiene caracteres no permitidos.
+        else if (!namePattern.test(lastName)) {
+            setError(this.lastName, 'Introduzca un apellido valido.');
+            // Mostramos el mensaje de error debajo del campo.
+            this.lastNameError.textContent = 'Introduzca un apellido valido.';
+        }
+
+        // Si el apellido es correcto, limpiamos el error.
+        else {
+            this.lastName.setCustomValidity('');
+            this.lastNameError.textContent = '';
         }
 
         // VALIDACIÓN DE LA INICIAL DEL SEGUNDO NOMBRE (OPCIONAL).
+        // Recuperamos el valor y eliminamos los espacios sobrantes.
         const middleInitial = this.middleInitial.value.trim();
 
-        // Si el campo no está vacío, comprobamos que solamente
-        // contenga una letra.
-        if (middleInitial !== '' && !/^\p{L}$/u.test(middleInitial)) {
-            setError(this.middleInitial, 'Introduce solamente una letra.');
+        // Comprobamos que, si se introduce una inicial, sea una única letra.
+        const initialPattern = /^[\p{L}]$/u;
+
+        // Si el campo contiene algún valor, comprobamos que sea válido.
+        if (middleInitial !== '' && !initialPattern.test(middleInitial)) {
+            // Establecemos el mensaje de error para la validación del navegador.
+            setError(this.middleInitial, 'Enter only one letter.');
+            // Mostramos el mensaje de error debajo del campo.
+            this.middleInitialError.textContent = 'Enter only one letter.';
+        } else {
+            // Si está vacío o contiene una única letra, el campo es válido.
+            this.middleInitial.setCustomValidity('');
+            // Limpiamos el mensaje de error.
+            this.middleInitialError.textContent = '';
         }
 
         // VALIDACIÓN DEL TELÉFONO.
@@ -211,7 +258,6 @@ class singUpController {
         // SEGUNDO PASO: RECOGER LOS DATOS DEL FORMULARIO.
         // Creamos un objeto con los datos que enviaremos al backend.
         const userData = {
-
             // Datos personales.
             firstName: this.firstName.value.trim(),
             lastName: this.lastName.value.trim(),
@@ -315,6 +361,5 @@ class singUpController {
 }
 
 // CREAMOS EL CONTROLADOR.
-// Al crear esta instancia, se ejecuta el constructor
-// y se preparan los eventos del formulario.
+// Al crear esta instancia, se ejecuta el constructor y se preparan los eventos del formulario.
 const signUp = new singUpController();
