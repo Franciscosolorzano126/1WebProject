@@ -137,6 +137,29 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* MENSAJES DE ERROR DE LOS CAMPOS. */
+.error-message {
+    /* Mostramos el mensaje debajo del campo correspondiente. */
+    display: block;
+
+    /* Utilizamos un color rojo claro para destacar los errores. */
+    color: #FCA5A5;
+
+    /* Reducimos ligeramente el tamaño del texto. */
+    font-size: 0.78rem;
+
+    /* Separamos el mensaje del campo de entrada. */
+    margin-top: 6px;
+
+    /* Mejoramos la legibilidad del mensaje. */
+    line-height: 1.4;
+}
+
+/* Ocultamos los mensajes cuando no contienen ningún texto. */
+.error-message:empty {
+    display: none;
+}
+
 /* Inputs y selectores normales */
 .field input,
 .field select {
@@ -494,7 +517,7 @@ body {
 /* En pantallas grandes, los botones de registro se ajustan a su contenido */
 @media (min-width: 701px) {
     .register-card .buttons .btn {
-    /* Deja que el ancho del botón dependa de su contenido. */
+        /* Deja que el ancho del botón dependa de su contenido. */
         width: auto;
     }
 }
@@ -502,43 +525,43 @@ body {
 /* En tabletas y móviles, los campos pasan a una columna */
 @media (max-width: 700px) {
     body {
-    /* Alinea el contenido al inicio del eje transversal. */
+        /* Alinea el contenido al inicio del eje transversal. */
         align-items: flex-start;
     }
 
     .container {
-    /* Añade espacio interior vertical y horizontal en pantallas pequeñas. */
+        /* Añade espacio interior vertical y horizontal en pantallas pequeñas. */
         padding: 24px 12px;
     }
 
     .login-card {
-    /* Organiza el formulario en una columna. */
+        /* Organiza el formulario en una columna. */
         grid-template-columns: minmax(0, 1fr);
-    /* Añade espacio interior para pantallas pequeñas. */
+        /* Añade espacio interior para pantallas pequeñas. */
         padding: 25px 20px;
     }
 
     .full-width {
-    /* Hace que el campo abarque todas las columnas disponibles. */
+        /* Hace que el campo abarque todas las columnas disponibles. */
         grid-column: 1 / -1;
     }
 
     .buttons {
-    /* Coloca los elementos uno debajo de otro. */
+        /* Coloca los elementos uno debajo de otro. */
         flex-direction: column;
     }
 
     .btn {
-    /* Hace que el selector ocupe todo el ancho disponible. */
+        /* Hace que el selector ocupe todo el ancho disponible. */
         width: 100%;
     }
 
     .options {
-    /* Coloca los elementos uno debajo de otro. */
+        /* Coloca los elementos uno debajo de otro. */
         flex-direction: column;
-    /* Deja separación entre los botones. */
+        /* Deja separación entre los botones. */
         gap: 15px;
-    /* Alinea el contenido al inicio del eje transversal. */
+        /* Alinea el contenido al inicio del eje transversal. */
         align-items: flex-start;
     }
 }
@@ -546,14 +569,14 @@ body {
 /* En móviles muy estrechos, el prefijo se coloca encima del número */
 @media (max-width: 320px) {
     .phone-group {
-    /* Permite que los elementos bajen a otra línea si no caben. */
+        /* Permite que los elementos bajen a otra línea si no caben. */
         flex-wrap: wrap;
     }
 
     .phone-group select {
-    /* Permite que el prefijo ocupe una línea completa en móviles muy estrechos. */
+        /* Permite que el prefijo ocupe una línea completa en móviles muy estrechos. */
         flex: 1 1 100%;
-    /* Hace que el selector ocupe todo el ancho disponible. */
+        /* Hace que el selector ocupe todo el ancho disponible. */
         width: 100%;
     }
 }

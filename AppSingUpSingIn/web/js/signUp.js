@@ -27,16 +27,35 @@ class singUpController {
 
         // Recuperamos los campos de dirección.
         this.street = document.getElementById('street');
+        // Recuperamos el elemento donde mostraremos el mensaje de error de la dirección.
+        this.streetError = document.getElementById('streetError');
+
         this.city = document.getElementById('city');
+        // Recuperamos el elemento donde mostraremos el mensaje de error de la ciudad.
+        this.cityError = document.getElementById('cityError');
+
         this.state = document.getElementById('state');
+        // Recuperamos el elemento donde mostraremos el mensaje de error de la provincia.
+        this.stateError = document.getElementById('stateError');
+
         this.zip = document.getElementById('zip');
+        // Recuperamos el elemento donde mostraremos el mensaje de error del código postal.
+        this.zipError = document.getElementById('zipError');
 
         // Recuperamos el campo del correo electrónico.
         this.email = document.getElementById('email');
+        // Recuperamos el elemento donde mostraremos el mensaje de error del correo electrónico.
+        this.emailError = document.getElementById('emailError');
+
 
         // Recuperamos los campos de contraseña.
         this.password = document.getElementById('password');
+        // Recuperamos el elemento donde mostraremos el mensaje de error de la contraseña.
+        this.passwordError = document.getElementById('passwordError');
+
         this.repeatPassword = document.getElementById('repeatPassword');
+        // Recuperamos el elemento donde mostraremos el mensaje de error de la confirmación de contraseña.
+        this.repeatPasswordError = document.getElementById('repeatPasswordError');
 
 
         // Comprobamos que el formulario existe.
@@ -156,6 +175,7 @@ class singUpController {
         }
 
         // VALIDACIÓN DEL TELÉFONO.
+        // Recuperamos el número y eliminamos los espacios sobrantes.
         const phone = this.phone.value.trim();
 
         // Permitimos números, espacios, paréntesis, puntos y guiones.
@@ -164,79 +184,218 @@ class singUpController {
         // Eliminamos los caracteres que no sean números.
         const phoneDigits = phone.replace(/\D/g, '');
 
-        // Comprobamos que el teléfono tenga entre 7 y 15 dígitos.
-        if (!phonePattern.test(phone) || phoneDigits.length < 7 || phoneDigits.length > 15) {
+        // Comprobamos si el teléfono está vacío.
+        if (phone === '') {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.phone, 'El teléfono es obligatorio.');
+            // Mostramos el mensaje debajo del campo.
+            this.phoneError.textContent = 'El teléfono es obligatorio.';
+        }
+        // Comprobamos el formato y la longitud del teléfono.
+        else if (!phonePattern.test(phone) || phoneDigits.length < 7 || phoneDigits.length > 15) {
             setError(this.phone, 'Introduce un teléfono válido de entre 7 y 15 dígitos.');
+            // Mostramos el mensaje de error debajo del campo.
+            this.phoneError.textContent = 'Introduce un teléfono válido de entre 7 y 15 dígitos.';
+        }
+        // Si el teléfono es correcto, limpiamos el error.
+        else {
+            this.phone.setCustomValidity('');
+            this.phoneError.textContent = '';
         }
 
         // VALIDACIÓN DEL PREFIJO TELEFÓNICO.
+
         // Comprobamos que el usuario haya seleccionado un prefijo.
         if (!this.prefix.value) {
-            setError(this.prefix, 'Selecciona un prefijo.');
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.prefix, 'Selecciona un prefijo telefónico.');
+            // Mostramos el mensaje de error debajo del teléfono.
+            this.phoneError.textContent = 'Selecciona un prefijo telefónico.';
+        }
+        // Si el prefijo es correcto, limpiamos el error.
+        else {
+            this.prefix.setCustomValidity('');
         }
 
         // VALIDACIÓN DE LA DIRECCIÓN.
+        // Recuperamos la dirección y eliminamos los espacios sobrantes.
         const street = this.street.value.trim();
 
+        // Comprobamos si el campo está vacío.
+        if (street === '') {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.street, 'Street is required.');
+            // Mostramos el mensaje debajo del campo.
+            this.streetError.textContent = 'Street is required.';
+        }
         // Comprobamos que la dirección tenga al menos 5 caracteres.
-        if (street.length < 5) {
-            setError(this.street, 'Introduce una dirección válida.');
+        else if (street.length < 5) {
+            setError(this.street, 'Enter a valid street address.');
+            // Mostramos el mensaje debajo del campo.
+            this.streetError.textContent = 'Enter a valid street address.';
+        }
+        // Si la dirección es correcta, eliminamos el error.
+        else {
+            this.street.setCustomValidity('');
+            this.streetError.textContent = '';
         }
 
         // VALIDACIÓN DE LA CIUDAD Y LA PROVINCIA.
         // Permitimos letras, espacios, guiones y apóstrofes.
         const locationPattern = /^[\p{L}\s'-]+$/u;
 
-        // Comprobamos que la ciudad tenga un formato válido.
-        if (!locationPattern.test(this.city.value.trim())) {
-            setError(this.city, 'Introduce una ciudad válida.');
+        // Recuperamos el nombre de la ciudad y eliminamos espacios sobrantes.
+        const city = this.city.value.trim();
+
+        // Comprobamos si la ciudad está vacía.
+        if (city === '') {
+            setError(this.city, 'City is required.');
+            this.cityError.textContent = 'City is required.';
+        }
+        // Comprobamos si la ciudad tiene un formato válido.
+        else if (!locationPattern.test(city)) {
+            setError(this.city, 'Enter a valid city.');
+            this.cityError.textContent = 'Enter a valid city.';
+        }
+        // Si la ciudad es correcta, eliminamos el error.
+        else {
+            this.city.setCustomValidity('');
+            this.cityError.textContent = '';
         }
 
-        // Comprobamos que la provincia tenga un formato válido.
-        if (!locationPattern.test(this.state.value.trim())) {
-            setError(this.state, 'Introduce una provincia válida.');
+        // Recuperamos la provincia y eliminamos espacios sobrantes.
+        const state = this.state.value.trim();
+
+        // Comprobamos si la provincia está vacía.
+        if (state === '') {
+            setError(this.state, 'State is required.');
+            this.stateError.textContent = 'State is required.';
+        }
+        // Comprobamos si la provincia tiene un formato válido.
+        else if (!locationPattern.test(state)) {
+            setError(this.state, 'Enter a valid state or province.');
+            this.stateError.textContent = 'Enter a valid state or province.';
+        }
+        // Si la provincia es correcta, eliminamos el error.
+        else {
+            this.state.setCustomValidity('');
+            this.stateError.textContent = '';
         }
 
         // VALIDACIÓN DEL CÓDIGO POSTAL.
+        // Recuperamos el código postal y eliminamos espacios sobrantes.
         const zip = this.zip.value.trim();
 
-        // Permitimos entre 3 y 9 números.
-        // Utilizamos números porque el campo ZIP de nuestra entidad
-        // Java está definido como Integer.
-        if (!/^\d{3,9}$/.test(zip)) {
-            setError(this.zip, 'Introduce un código postal válido.');
+        // Permitimos códigos postales de entre 3 y 9 números.
+        // Utilizamos números porque el campo ZIP de nuestra entidad Java está definido como Integer.
+        if (zip === '') {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.zip, 'ZIP code is required.');
+            // Mostramos el mensaje debajo del campo.
+            this.zipError.textContent = 'ZIP code is required.';
+        }
+
+        // Comprobamos que el código postal tenga entre 3 y 9 dígitos.
+        else if (!/^\d{3,9}$/.test(zip)) {
+            setError(this.zip, 'Enter a valid ZIP code.');
+            // Mostramos el mensaje debajo del campo.
+            this.zipError.textContent = 'Enter a valid ZIP code.';
+        }
+        // Si el código postal es correcto, eliminamos el error.
+        else {
+            this.zip.setCustomValidity('');
+            this.zipError.textContent = '';
         }
 
         // VALIDACIÓN DEL CORREO ELECTRÓNICO.
-        // Comprobamos que el correo tenga un formato válido
-        // utilizando la validación nativa de HTML.
-        if (!this.email.validity.valid) {
-            setError(this.email, 'Introduce un correo electrónico válido.');
+        // Recuperamos el correo y eliminamos los espacios sobrantes.
+        const email = this.email.value.trim();
+
+        // Expresión regular para comprobar el formato del correo electrónico.
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Comprobamos si el campo está vacío.
+        if (email === '') {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.email, 'Email is required.');
+            // Mostramos el mensaje debajo del campo.
+            this.emailError.textContent = 'Email is required.';
+        }
+        // Comprobamos si el correo tiene un formato incorrecto.
+        else if (!emailPattern.test(email)) {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.email, 'Enter a valid email address.');
+            // Mostramos el mensaje debajo del campo.
+            this.emailError.textContent = 'Enter a valid email address.';
+        }
+        // Si el correo es correcto, eliminamos el error.
+        else {
+            this.email.setCustomValidity('');
+            this.emailError.textContent = '';
         }
 
         // VALIDACIÓN DE LA CONTRASEÑA.
+
+        // Recuperamos la contraseña introducida por el usuario.
         const password = this.password.value;
+
         // La contraseña debe contener:
         // - Una letra minúscula.
         // - Una letra mayúscula.
         // - Un número.
+        // - Un carácter especial.
         // - Un mínimo de 8 caracteres.
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        // - Ningún espacio.
 
-        if (!passwordPattern.test(password)) {
+        // Expresión regular para comprobar todos los requisitos.
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])(?=\S+$).{8,}$/;
 
-            setError(this.password, 'La contraseña necesita 8 caracteres, una mayúscula, una minúscula y un número.');
+        // Comprobamos si el campo está vacío.
+        if (password === '') {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.password, 'Password is required.');
+            // Mostramos el mensaje debajo del campo.
+            this.passwordError.textContent = 'Password is required.';
+        }
+        // Comprobamos si la contraseña cumple todos los requisitos.
+        else if (!passwordPattern.test(password)) {
+            setError(this.password, 'Password must have at least 8 characters, uppercase, lowercase, a number and a special character, without spaces.');
+            // Mostramos el mensaje de error debajo del campo.
+            this.passwordError.textContent = 'Use at least 8 characters, uppercase, lowercase, a number and a special character. No spaces.';
+        }
+        // Si la contraseña es correcta, eliminamos el error.
+        else {
+            this.password.setCustomValidity('');
+            this.passwordError.textContent = '';
         }
 
-        // VALIDACIÓN DE REPETIR CONTRASEÑA.
-        // Comprobamos que las dos contraseñas coincidan.
-        if (this.repeatPassword.value !== password) {
-            setError(this.repeatPassword, 'Las contraseñas no coinciden.');
+        // VALIDACIÓN DE REPEAT PASSWORD.
+        // Recuperamos la contraseña de confirmación.
+        const repeatPassword = this.repeatPassword.value;
+
+        // Comprobamos si el campo está vacío.
+        if (repeatPassword === '') {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.repeatPassword, 'Password confirmation is required.');
+            // Mostramos el mensaje debajo del campo.
+            this.repeatPasswordError.textContent = 'Password confirmation is required.';
+        }
+        // Comprobamos si las dos contraseñas coinciden.
+        else if (repeatPassword !== password) {
+            // Establecemos el mensaje de error para el navegador.
+            setError(this.repeatPassword, 'Passwords do not match.');
+            // Mostramos el mensaje debajo del campo.
+            this.repeatPasswordError.textContent = 'Passwords do not match.';
+        }
+        // Si las contraseñas coinciden, eliminamos el error.
+        else {
+            this.repeatPassword.setCustomValidity('');
+            this.repeatPasswordError.textContent = '';
         }
 
-        // Devolvemos el resultado de las validaciones.
-        // true: todos los campos son válidos.
-        // false: existe algún campo incorrecto.
+        // Devolvemos el resultado de todas las validaciones.
+        // true: todos los campos son correctos.
+        // false: existe algún campo con errores.
         return valid;
     }
 

@@ -79,30 +79,45 @@
                     <label class="field full-width">
                         <span>Street</span>
                         <input type="text" id="street" name="street" placeholder="Street and number" autocomplete="street-address" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error de la dirección. -->
+                        <small class="error-message" id="streetError"></small>
                     </label>
 
                     <!-- CIUDAD -->
                     <label class="field">
                         <span>City</span>
                         <input type="text" id="city" name="city" placeholder="City" autocomplete="address-level2" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error de la ciudad. -->
+                        <small class="error-message" id="cityError"></small>
                     </label>
 
                     <!-- PROVINCIA O ESTADO -->
                     <label class="field">
                         <span>State</span>
                         <input type="text" id="state" name="state" placeholder="State or province" autocomplete="address-level1" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error de la provinciaD. -->
+                        <small class="error-message" id="stateError"></small>
                     </label>
 
                     <!-- CÓDIGO POSTAL -->
                     <label class="field">
                         <span>ZIP</span>
                         <input type="text" id="zip" name="zip" placeholder="Postal code" autocomplete="postal-code" inputmode="numeric" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error del código postal. -->
+                        <small class="error-message" id="zipError"></small>
                     </label>
 
                     <!-- CORREO ELECTRÓNICO -->
                     <label class="field">
                         <span>Email</span>
-                        <input type="email" id="email" name="email" placeholder="Email ID" autocomplete="email" required>
+                        <input type="email" id="email" name="email" placeholder="example@example.com" autocomplete="email">
+
+                        <!-- Espacio donde mostraremos el mensaje de error del correo electrónico. -->
+                        <small class="error-message" id="emailError"></small>
                     </label>
 
 
@@ -120,6 +135,9 @@
                                 >
                             <span class="eye" aria-hidden="true">👁</span>
                         </div>
+
+                        <!-- Mensaje de error para la validación de la contraseña. -->
+                        <small class="error-message" id="passwordError"></small>
                     </label>
 
                     <!-- REPETIR CONTRASEÑA -->
@@ -136,6 +154,9 @@
                                 >
                             <span class="eye" aria-hidden="true">👁</span>
                         </div>
+
+                        <!-- Mensaje de error para comprobar que ambas contraseñas coincidan. -->
+                        <small class="error-message" id="repeatPasswordError"></small>
                     </label>
 
                     <!-- BOTONES (Ocupan 2 columnas) -->
