@@ -9,11 +9,7 @@
     <title>SignUpSignIn - Login</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/style.css">
-
-    <!-- Font Awesome para el icono del ojo -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/AppSignUpSignIn/css/style.css">
 
 </head>
 
@@ -74,6 +70,7 @@
                                 required
                             >
 
+                            <!-- BOTÓN MOSTRAR / OCULTAR -->
                             <button
                                 type="button"
                                 id="passwordToggle"
@@ -83,7 +80,12 @@
                                 aria-pressed="false"
                             >
 
-                                <i class="fa-solid fa-eye"></i>
+                                <img
+                                    id="passwordEyeIcon"
+                                    src="/AppSignUpSignIn/images/tachado.svg"
+                                    alt=""
+                                    aria-hidden="true"
+                                >
 
                             </button>
 
@@ -126,7 +128,7 @@
     </main>
 
     <!-- JAVASCRIPT -->
-    <script type="module" src="../js/signIn.js"></script>
+    <script type="module" src="/AppSignUpSignIn/js/signIn.js"></script>
 
 </body>
 </html>
