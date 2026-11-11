@@ -6,6 +6,15 @@ class singUpController {
         // Recuperamos el formulario de registro del HTML.
         this.form = document.querySelector('.register-card');
 
+        // Recuperamos el botón de registro.
+        this.submitButton = this.form.querySelector('button[type="submit"]');
+
+        // Recuperamos el espacio donde mostraremos los errores del servidor.
+        this.serverError = document.getElementById('serverError');
+
+        // Recuperamos el espacio donde mostraremos el mensaje de éxito.
+        this.successMessage = document.getElementById('successMessage');
+
         // Recuperamos los campos personales.
         this.firstName = document.getElementById('firstName');
         // Recuperamos el espacio donde mostraremos el error del nombre.
@@ -47,7 +56,6 @@ class singUpController {
         // Recuperamos el elemento donde mostraremos el mensaje de error del correo electrónico.
         this.emailError = document.getElementById('emailError');
 
-
         // Recuperamos los campos de contraseña.
         this.password = document.getElementById('password');
         // Recuperamos el elemento donde mostraremos el mensaje de error de la contraseña.
@@ -56,7 +64,6 @@ class singUpController {
         this.repeatPassword = document.getElementById('repeatPassword');
         // Recuperamos el elemento donde mostraremos el mensaje de error de la confirmación de contraseña.
         this.repeatPasswordError = document.getElementById('repeatPasswordError');
-
 
         // Comprobamos que el formulario existe.
         if (!this.form) {
@@ -88,9 +95,32 @@ class singUpController {
         });
     }
 
+    // MÉTODO PARA MOSTRAR ERRORES GENERALES DEL SERVIDOR.
+    showServerError(message) {
+        // Mostramos el mensaje de error en el HTML.
+        this.serverError.textContent = message;
+
+        // Hacemos visible el mensaje.
+        this.serverError.style.display = 'block';
+
+        // Ocultamos cualquier mensaje de éxito anterior.
+        this.successMessage.textContent = '';
+        this.successMessage.style.display = 'none';
+    }
+
+    // MÉTODO PARA LIMPIAR LOS MENSAJES GENERALES.
+    clearServerMessages() {
+        // Eliminamos el mensaje de error anterior.
+        this.serverError.textContent = '';
+        this.serverError.style.display = 'none';
+
+        // Eliminamos el mensaje de éxito anterior.
+        this.successMessage.textContent = '';
+        this.successMessage.style.display = 'none';
+    }
+
     // MÉTODO PARA VALIDAR LOS DATOS DEL FORMULARIO.
     validateForm() {
-
         // Variable que indica si el formulario es válido.
         let valid = true;
 
@@ -204,7 +234,6 @@ class singUpController {
         }
 
         // VALIDACIÓN DEL PREFIJO TELEFÓNICO.
-
         // Comprobamos que el usuario haya seleccionado un prefijo.
         if (!this.prefix.value) {
             // Establecemos el mensaje de error para el navegador.
@@ -335,7 +364,6 @@ class singUpController {
         }
 
         // VALIDACIÓN DE LA CONTRASEÑA.
-
         // Recuperamos la contraseña introducida por el usuario.
         const password = this.password.value;
 
@@ -406,11 +434,10 @@ class singUpController {
         event.preventDefault();
 
         // PRIMER PASO: VALIDAR EL FORMULARIO.
-        // Ejecutamos el método validateForm().
+        // Ejecutamos el método validateForm() para comprobar todos los campos.
         if (!this.validateForm()) {
-            // Si hay errores, mostramos el mensaje del primer campo incorrecto.
-            this.form.reportValidity();
-            // Detenemos el proceso de registro.
+            // Si existen errores, detenemos el proceso de registro.
+            // Los mensajes individuales ya se muestran debajo de cada campo.
             return;
         }
 
@@ -444,6 +471,27 @@ class singUpController {
         // Esta es la URL base de nuestro servicio UserFacadeREST.
         const API_URL = 'http://localhost:8080/AppSignUpSignIn/webresources/model.user';
 
+        // Creamos un controlador para poder cancelar las peticiones al servidor.
+        const controller = new AbortController();
+
+        // Variable que guardará el temporizador.
+        let timeoutId;
+
+        // Desactivamos el botón para evitar varios registros simultáneos.
+        this.submitButton.disabled = true;
+
+        // Cambiamos el texto del botón mientras se procesa el registro.
+        this.submitButton.textContent = 'REGISTERING...';
+
+        // Limpiamos los mensajes de operaciones anteriores.
+        this.clearServerMessages();
+
+        // Iniciamos un temporizador de 6 seg.
+        // Si el servidor no responde, cancelamos la petición.
+        timeoutId = setTimeout(() => {
+            controller.abort();
+        }, 6000);
+
         // Utilizamos try-catch para controlar los posibles errores
         // que puedan producirse durante la comunicación con el servidor.
         try {
@@ -457,7 +505,9 @@ class singUpController {
                         // Indicamos que esperamos recibir texto.
                         headers: {
                             'Accept': 'text/plain'
-                        }
+                        },
+                        // Conectamos la petición con nuestro controlador.
+                        signal: controller.signal
                     }
             );
 

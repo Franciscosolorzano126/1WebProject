@@ -16,7 +16,8 @@
 
             <!-- Formulario -->
             <section class="login-shell">
-                <form class="login-card register-card" action="#" method="post">
+                <!-- Formulario de registro: las validaciones se realizarán mediante JavaScript. -->
+                <form class="login-card register-card" action="#" method="post" novalidate>
 
                     <!-- NOMBRE -->
                     <label class="field">
@@ -133,7 +134,8 @@
                                 autocomplete="new-password"
                                 required
                                 >
-                            <span class="eye" aria-hidden="true">👁</span>
+                            <!-- Icono para mostrar u ocultar la contraseña principal. -->
+                            <span class="eye" data-target="password" aria-hidden="true">👁</span>
                         </div>
 
                         <!-- Mensaje de error para la validación de la contraseña. -->
@@ -152,12 +154,22 @@
                                 autocomplete="new-password"
                                 required
                                 >
-                            <span class="eye" aria-hidden="true">👁</span>
+                            <!-- Icono para mostrar u ocultar la confirmación de contraseña. -->
+                            <span class="eye" data-target="repeatPassword" aria-hidden="true">👁</span>
                         </div>
 
                         <!-- Mensaje de error para comprobar que ambas contraseñas coincidan. -->
                         <small class="error-message" id="repeatPasswordError"></small>
                     </label>
+
+                    <!-- MENSAJES GENERALES DEL SERVIDOR -->
+                    <div class="full-width">
+                        <!-- Aquí aparecerán los errores del servidor o de conexión. -->
+                        <small id="serverError" class="error-message"></small>
+
+                        <!-- Aquí aparecerá el mensaje de registro correcto. -->
+                        <small id="successMessage" class="success-message"></small>
+                    </div>
 
                     <!-- BOTONES (Ocupan 2 columnas) -->
                     <div class="buttons full-width">
