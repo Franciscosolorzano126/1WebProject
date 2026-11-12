@@ -1,57 +1,124 @@
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SignUpSignIn - Login</title>
-    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="/AppSignUpSignIn/css/style.css">
 </head>
+
 <body>
+
     <main class="container">
-        <!-- Cabecera -->
+
         <div class="header">
             <h1>USER LOGIN</h1>
             <p>Welcome back! Please enter your details.</p>
         </div>
 
-        <!-- Formulario -->
         <section class="login-shell">
-            <form class="login-card login-form-card" action="#" method="post">
-                
-                <!-- Correo Electrónico con Icono -->
-                <label class="input-row">
-                    <span class="icon">👤</span>
-                    <input type="email" name="email" placeholder="Email ID" autocomplete="email" required>
-                </label>
 
-                <!-- Contraseña con Icono -->
-                <label class="input-row">
-                    <span class="icon">🔒</span>
-                    <div class="password-container">
+            <form id="loginForm"
+                  class="login-card login-form-card"
+                  action="#"
+                  method="post">
+
+                <!-- EMAIL -->
+                <div class="field-wrapper">
+
+                    <label class="input-row" for="email">
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Email ID"
+                            autocomplete="email"
+                            required>
+
+                    </label>
+
+                    <div id="emailError"
+                         class="error-message"
+                         style="display: none;">
+                    </div>
+
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="field-wrapper">
+
+                    <div class="input-row">
+
+                        <div class="password-container">
+
                             <input
                                 type="password"
                                 id="password"
                                 name="password"
                                 placeholder="Password"
-                                autocomplete="new-password"
-                                required
-                                >
-                            <span class="eye" aria-hidden="true">👁</span>
-                        </div>
-                </label>
+                                autocomplete="current-password"
+                                required>
 
-                <!-- Botones -->
+                            <button
+                                type="button"
+                                id="passwordToggle"
+                                class="eye"
+                                aria-label="Mostrar contraseña"
+                                title="Mostrar contraseña"
+                                aria-pressed="false">
+
+                                <img
+                                    id="passwordEyeIcon"
+                                    src="/AppSignUpSignIn/images/tachado.svg"
+                                    alt=""
+                                    aria-hidden="true">
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div id="passwordError"
+                         class="error-message"
+                         style="display: none;">
+                    </div>
+
+                </div>
+
+                <!-- MENSAJE DE ÉXITO -->
+                <div id="successMessage"
+                     class="error-message success-message"
+                     style="display: none;">
+                </div>
+
+                <!-- BOTONES -->
                 <div class="buttons full-width">
-                    <button type="submit" class="btn btn-primary">
+
+                    <button type="submit"
+                            class="btn btn-primary login-btn">
                         LOGIN
                     </button>
-                    <a class="btn btn-secondary" href="signUp.html">
+
+                    <a class="btn btn-secondary"
+                       href="signUp.html">
                         REGISTER
                     </a>
+
                 </div>
-                
+
             </form>
+
         </section>
+
     </main>
+
+    <script type="module" src="/AppSignUpSignIn/js/signIn.js"></script>
+
 </body>
 </html>
