@@ -9,19 +9,14 @@
 
 body {
     font-family: sans-serif;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     min-height: 100vh;
-
     margin: 0;
     padding: 20px;
-
     background-color: #172554;
     background-image: linear-gradient(135deg, #172554, #312E81);
-
     color: #FFFFFF;
 }
 
@@ -31,12 +26,9 @@ body {
 
 .container {
     text-align: center;
-
     padding: 40px 20px;
-
     width: 100%;
     max-width: 1100px;
-
     margin: 0 auto;
 }
 
@@ -47,9 +39,7 @@ body {
 
 .header p {
     color: #CBD5E1;
-
     margin-bottom: 30px;
-
     font-size: 1.1rem;
 }
 
@@ -59,31 +49,20 @@ body {
 
 .login-card {
     background-color: rgba(255, 255, 255, 0.08);
-
     padding: 35px;
-
     border-radius: 15px;
-
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-
     border: 1px solid rgba(255, 255, 255, 0.15);
-
     display: grid;
-
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
     gap: 20px;
-
     text-align: left;
-
     width: 100%;
 }
 
 .login-form-card {
     max-width: 450px;
-
     margin: 0 auto;
-
     grid-template-columns: minmax(0, 1fr);
 }
 
@@ -98,21 +77,15 @@ body {
 .field {
     display: flex;
     flex-direction: column;
-
     min-width: 0;
 }
 
 .field > span {
     font-size: 0.85rem;
-
     color: #E0E7FF;
-
     margin-bottom: 6px;
-
     font-weight: 500;
-
     text-transform: uppercase;
-
     letter-spacing: 0.5px;
 }
 
@@ -120,21 +93,13 @@ body {
 .field select {
     width: 100%;
     min-width: 0;
-
     padding: 12px 15px;
-
     border-radius: 8px;
-
     background-color: #1E293B;
-
     border: 1px solid #475569;
-
     color: #FFFFFF;
-
     font-size: 1rem;
-
     outline: none;
-
     transition: border-color 0.3s;
 }
 
@@ -158,9 +123,7 @@ body {
 
 .phone-group {
     display: flex;
-
     gap: 10px;
-
     width: 100%;
     min-width: 0;
 }
@@ -169,27 +132,17 @@ body {
     appearance: auto;
     -webkit-appearance: auto;
     -moz-appearance: auto;
-
     flex: 0 0 125px;
-
     width: 125px;
     min-width: 0;
-
     padding: 12px 15px;
-
     border-radius: 8px;
-
     background-color: #1E293B;
-
     border: 1px solid #475569;
-
     color: #FFFFFF;
-
     font-family: inherit;
     font-size: 1rem;
-
     outline: none;
-
     cursor: pointer;
 }
 
@@ -204,7 +157,6 @@ body {
 
 .phone-group input {
     flex: 1 1 auto;
-
     width: 100%;
     min-width: 0;
 }
@@ -216,7 +168,6 @@ body {
 .field-wrapper {
     display: flex;
     flex-direction: column;
-
     width: 100%;
     min-width: 0;
 }
@@ -224,18 +175,12 @@ body {
 .input-row {
     display: flex;
     align-items: center;
-
     width: 100%;
     min-width: 0;
-
     background-color: #1E293B;
-
     border: 1px solid #475569;
-
     border-radius: 8px;
-
     padding: 0 15px;
-
     transition: border-color 0.3s;
 }
 
@@ -245,30 +190,20 @@ body {
 
 .input-row .icon {
     flex: 0 0 auto;
-
     font-size: 1.2rem;
-
     margin-right: 10px;
-
     color: #A78BFA;
 }
 
 .input-row input {
     flex: 1 1 auto;
-
     min-width: 0;
     width: 100%;
-
     padding: 15px 0;
-
     background: transparent;
-
     border: none;
-
     color: #FFFFFF;
-
     font-size: 1rem;
-
     outline: none;
 }
 
@@ -282,34 +217,22 @@ body {
 
 .password-container {
     position: relative;
-
     display: flex;
     align-items: center;
-
     flex: 1 1 auto;
-
     width: 100%;
     min-width: 0;
 }
 
-/* INPUT DE CONTRASEÑA */
-
 .password-container input {
     flex: 1 1 auto;
-
     width: 100%;
     min-width: 0;
-
     padding: 15px 45px 15px 0;
-
     background: transparent;
-
     border: none;
-
     color: #FFFFFF;
-
     font-size: 1rem;
-
     outline: none;
 }
 
@@ -317,55 +240,35 @@ body {
     color: #94A3B8;
 }
 
-/* BOTÓN DEL OJO */
-
 .password-container .eye {
     position: absolute;
-
     right: 5px;
     top: 50%;
-
     transform: translateY(-50%);
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 35px;
     height: 35px;
-
     padding: 0;
-
     background: transparent;
-
     border: none;
-
     border-radius: 6px;
-
     cursor: pointer;
-
     z-index: 5;
-
     transition:
         background-color 0.25s ease,
         transform 0.25s ease;
 }
 
-/* IMAGEN SVG: MORADO SIEMPRE */
+/* Imagen SVG: color morado permanente */
 
 .password-container .eye img {
-
     width: 21px;
     height: 21px;
-
     object-fit: contain;
-
     display: block;
-
     opacity: 1;
-
-    /* COLOR MORADO PERMANENTE */
-
     filter:
         brightness(0)
         saturate(100%)
@@ -375,34 +278,27 @@ body {
         hue-rotate(225deg)
         brightness(105%)
         contrast(105%);
-
     transition:
         transform 0.25s ease,
         opacity 0.25s ease;
 }
 
-/* EFECTO HOVER */
+/* Efecto hover */
 
 .password-container .eye:hover {
-
     background-color: rgba(167, 139, 250, 0.10);
-
     transform: translateY(-50%) scale(1.05);
 }
 
 .password-container .eye:hover img {
-
     opacity: 1;
-
     transform: scale(1.08);
 }
 
-/* CONTRASEÑA VISIBLE: SIGUE SIENDO MORADO */
+/* Contraseña visible: sigue siendo morado */
 
 .password-container .eye.active img {
-
     opacity: 1;
-
     filter:
         brightness(0)
         saturate(100%)
@@ -414,56 +310,50 @@ body {
         contrast(105%);
 }
 
-/* ACCESIBILIDAD: TECLADO */
+/* Accesibilidad: teclado */
 
 .password-container .eye:focus-visible {
-
     outline: 2px solid #A78BFA;
-
     outline-offset: 3px;
-
     border-radius: 6px;
 }
 
-/* EFECTO AL PULSAR */
+/* Efecto al pulsar */
 
 .password-container .eye:active {
-
     transform: translateY(-50%) scale(0.94);
 }
 
 /* =========================================================
-   8. MENSAJES DE ERROR
+   8. MENSAJES DE ERROR Y ÉXITO
    ========================================================= */
 
 .error-message {
+    display: block;
     width: 100%;
-
     margin-top: 6px;
-
     padding: 10px 12px;
-
     background-color: rgba(15, 23, 42, 0.75);
-
     color: #ff4444;
-
     border-left: 4px solid #ff5555;
-
     border-radius: 4px;
-
     font-size: 0.85rem;
-
+    line-height: 1.4;
     animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Oculta mensajes vacíos */
+
+.error-message:empty {
+    display: none;
 }
 
 .success-message {
     color: #4ade80;
-
     border-left-color: #4ade80;
 }
 
 @keyframes fadeIn {
-
     from {
         opacity: 0;
     }
@@ -471,7 +361,6 @@ body {
     to {
         opacity: 1;
     }
-
 }
 
 /* =========================================================
@@ -480,42 +369,32 @@ body {
 
 .options {
     display: flex;
-
     justify-content: space-between;
     align-items: center;
-
     font-size: 0.9rem;
-
     margin-bottom: 10px;
 }
 
 .remember {
     display: flex;
-
     align-items: center;
-
     gap: 8px;
-
     color: #CBD5E1;
-
     cursor: pointer;
 }
 
 .remember input[type="checkbox"] {
     accent-color: #8B5CF6;
-
     cursor: pointer;
 }
 
 .forgot-link {
     color: #A78BFA;
-
     text-decoration: none;
 }
 
 .forgot-link:hover {
     color: #5EEAD4;
-
     text-decoration: underline;
 }
 
@@ -525,12 +404,9 @@ body {
 
 .buttons {
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     gap: 15px;
-
     margin-top: 15px;
 }
 
@@ -540,61 +416,44 @@ body {
 
 .btn {
     display: inline-block;
-
     padding: 12px 25px;
-
     border: none;
-
     border-radius: 25px;
-
     cursor: pointer;
-
     font-size: 16px;
-
     font-weight: bold;
-
     transition:
         background-color 0.3s,
         border-color 0.3s;
-
     text-decoration: none;
-
     text-align: center;
-
     width: 100%;
 }
 
 .btn-primary {
     background-color: #8B5CF6;
-
     color: #FFFFFF;
-
     border: 2px solid #8B5CF6;
 }
 
 .btn-primary:hover {
     background-color: #7C3AED;
-
     border-color: #7C3AED;
 }
 
 .btn-secondary {
     background-color: transparent;
-
     color: #FFFFFF;
-
     border: 2px solid #A78BFA;
 }
 
 .btn-secondary:hover {
     background-color: #0F766E;
-
     border-color: #5EEAD4;
 }
 
 .btn:disabled {
     opacity: 0.6;
-
     cursor: not-allowed;
 }
 
@@ -602,13 +461,15 @@ body {
    11. RESPONSIVE
    ========================================================= */
 
-@media (min-width: 701px) {
+/* Pantallas grandes */
 
+@media (min-width: 701px) {
     .register-card .buttons .btn {
         width: auto;
     }
-
 }
+
+/* Tablets y móviles */
 
 @media (max-width: 700px) {
 
@@ -622,7 +483,6 @@ body {
 
     .login-card {
         grid-template-columns: minmax(0, 1fr);
-
         padding: 25px 20px;
     }
 
@@ -640,13 +500,12 @@ body {
 
     .options {
         flex-direction: column;
-
         gap: 15px;
-
         align-items: flex-start;
     }
-
 }
+
+/* Móviles muy estrechos */
 
 @media (max-width: 320px) {
 
@@ -656,8 +515,6 @@ body {
 
     .phone-group select {
         flex: 1 1 100%;
-
         width: 100%;
     }
-
 }

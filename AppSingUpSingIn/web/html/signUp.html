@@ -21,19 +21,31 @@
                     <!-- NOMBRE -->
                     <label class="field">
                         <span>First Name</span>
-                        <input type="text" id="firstName" name="firstName" placeholder="First name" autocomplete="given-name" required>
+                        <input type="text" 
+                               id="firstName" 
+                               name="firstName" 
+                               placeholder="First name" 
+                               autocomplete="given-name" 
+                               required
+                               >
+                        <!-- Aquí aparecerá el mensaje de validación -->
+                        <small class="error-message" id="firstNameError"></small>
                     </label>
 
                     <!-- APELLIDOS -->
                     <label class="field">
                         <span>Last Name</span>
                         <input type="text" id="lastName" name="lastName" placeholder="Last name" autocomplete="family-name" required>
+                        <small class="error-message" id="lastNameError"></small>
                     </label>
 
                     <!-- INICIAL DEL SEGUNDO NOMBRE -->
                     <label class="field">
                         <span>Middle Initial</span>
                         <input type="text" id="middleInitial" name="middleInitial" placeholder="Middle initial" maxlength="1">
+
+                        <!-- Espacio para mostrar posibles errores de validación. -->
+                        <small class="error-message" id="middleInitialError"></small>
                     </label>
 
                     <!-- TELÉFONO Y PREFIJO -->
@@ -59,36 +71,53 @@
                             </select>
                             <input type="tel" id="phone" name="phone" placeholder="Phone number" autocomplete="tel-national" required>
                         </div>
+                        <!-- Mensaje de error para la validación del teléfono. -->
+                        <small class="error-message" id="phoneError"></small>
                     </label>
 
                     <!-- CALLE (Ocupa 2 columnas) -->
                     <label class="field full-width">
                         <span>Street</span>
                         <input type="text" id="street" name="street" placeholder="Street and number" autocomplete="street-address" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error de la dirección. -->
+                        <small class="error-message" id="streetError"></small>
                     </label>
 
                     <!-- CIUDAD -->
                     <label class="field">
                         <span>City</span>
                         <input type="text" id="city" name="city" placeholder="City" autocomplete="address-level2" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error de la ciudad. -->
+                        <small class="error-message" id="cityError"></small>
                     </label>
 
                     <!-- PROVINCIA O ESTADO -->
                     <label class="field">
                         <span>State</span>
                         <input type="text" id="state" name="state" placeholder="State or province" autocomplete="address-level1" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error de la provinciaD. -->
+                        <small class="error-message" id="stateError"></small>
                     </label>
 
                     <!-- CÓDIGO POSTAL -->
                     <label class="field">
                         <span>ZIP</span>
                         <input type="text" id="zip" name="zip" placeholder="Postal code" autocomplete="postal-code" inputmode="numeric" required>
+
+                        <!-- Espacio donde mostraremos el mensaje de error del código postal. -->
+                        <small class="error-message" id="zipError"></small>
                     </label>
 
                     <!-- CORREO ELECTRÓNICO -->
                     <label class="field">
                         <span>Email</span>
-                        <input type="email" id="email" name="email" placeholder="Email ID" autocomplete="email" required>
+                        <input type="email" id="email" name="email" placeholder="example@example.com" autocomplete="email">
+
+                        <!-- Espacio donde mostraremos el mensaje de error del correo electrónico. -->
+                        <small class="error-message" id="emailError"></small>
                     </label>
 
 
@@ -106,6 +135,9 @@
                                 >
                             <span class="eye" aria-hidden="true">👁</span>
                         </div>
+
+                        <!-- Mensaje de error para la validación de la contraseña. -->
+                        <small class="error-message" id="passwordError"></small>
                     </label>
 
                     <!-- REPETIR CONTRASEÑA -->
@@ -122,6 +154,9 @@
                                 >
                             <span class="eye" aria-hidden="true">👁</span>
                         </div>
+
+                        <!-- Mensaje de error para comprobar que ambas contraseñas coincidan. -->
+                        <small class="error-message" id="repeatPasswordError"></small>
                     </label>
 
                     <!-- BOTONES (Ocupan 2 columnas) -->
@@ -133,9 +168,12 @@
                             BACK TO LOGIN
                         </a>
                     </div>
-
                 </form>
             </section>
         </main>
+
+        <!-- Conectamos el archivo JavaScript del registro -->
+        <script type="module" src="../js/signUp.js"></script>
+
     </body>
 </html>
