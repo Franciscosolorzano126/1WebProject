@@ -7,6 +7,21 @@ class singUpController {
     constructor() {
         // Recuperamos el formulario de registro del HTML.
         this.form = document.querySelector('.register-card');
+        // Comprobamos que el formulario existe.
+        if (!this.form) {
+            console.error('No se ha encontrado el formulario');
+            // Si no existe, detenemos la ejecución.
+            return;
+        }
+
+        // Recuperamos el botón de registro.
+        this.submitButton = this.form.querySelector('button[type="submit"]');
+
+        // Recuperamos el espacio para mostrar errores del servidor.
+        this.serverError = document.getElementById('serverError');
+
+        // Recuperamos el espacio para mostrar mensajes de éxito.
+        this.successMessage = document.getElementById('successMessage');
 
         // Recuperamos los campos personales.
         this.firstName = document.getElementById('firstName');
@@ -58,14 +73,6 @@ class singUpController {
         this.repeatPassword = document.getElementById('repeatPassword');
         // Recuperamos el elemento donde mostraremos el mensaje de error de la confirmación de contraseña.
         this.repeatPasswordError = document.getElementById('repeatPasswordError');
-
-
-        // Comprobamos que el formulario existe.
-        if (!this.form) {
-            console.error('No se ha encontrado el formulario');
-            // Si no existe, detenemos la ejecución.
-            return;
-        }
 
         // Escuchamos el evento submit del formulario.
         // Cuando el usuario pulsa el botón de registro,
@@ -126,6 +133,31 @@ class singUpController {
         // ACTUALIZAR ESTADO VISUAL
         button.classList.toggle('active', isPassword);
 
+    }
+
+    // MÉTODO PARA MOSTRAR ERRORES DEL SERVIDOR.
+    showServerError(message) {
+
+        // Mostramos el mensaje de error en el HTML.
+        this.serverError.textContent = message;
+
+        // Hacemos visible el mensaje.
+        this.serverError.style.display = 'block';
+
+        // Ocultamos cualquier mensaje de éxito anterior.
+        this.successMessage.textContent = '';
+        this.successMessage.style.display = 'none';
+    }
+
+    // MÉTODO PARA LIMPIAR LOS MENSAJES DEL SERVIDOR.
+    clearServerMessages() {
+        // Eliminamos el mensaje de error anterior.
+        this.serverError.textContent = '';
+        this.serverError.style.display = 'none';
+
+        // Eliminamos el mensaje de éxito anterior.
+        this.successMessage.textContent = '';
+        this.successMessage.style.display = 'none';
     }
 
     // MÉTODO PARA VALIDAR LOS DATOS DEL FORMULARIO.
@@ -442,15 +474,16 @@ class singUpController {
     // MÉTODO QUE GESTIONA EL ENVÍO DEL FORMULARIO.
     // Utilizamos async porque realizaremos peticiones a la API REST.
     async handleSubmit(event) {
+        // LIMPIAR LOS MENSAJES DE OPERACIONES ANTERIORES.
+        this.clearServerMessages();
+
         // Evitamos el envío tradicional del formulario HTML.
         event.preventDefault();
 
         // PRIMER PASO: VALIDAR EL FORMULARIO.
         // Ejecutamos el método validateForm().
         if (!this.validateForm()) {
-            // Si hay errores, mostramos el mensaje del primer campo incorrecto.
-            this.form.reportValidity();
-            // Detenemos el proceso de registro.
+            // Si hay errores, detenemos el proceso de registro.
             return;
         }
 
@@ -484,9 +517,24 @@ class singUpController {
         // Esta es la URL base de nuestro servicio UserFacadeREST.
         const API_URL = 'http://localhost:8080/AppSignUpSignIn/webresources/model.user';
 
+        // CONTROLADOR PARA CANCELAR LAS PETICIONES.
+        const controller = new AbortController();
+
+        // VARIABLE PARA GUARDAR EL TEMPORIZADOR.
+        let timeoutId;
+
         // Utilizamos try-catch para controlar los posibles errores
         // que puedan producirse durante la comunicación con el servidor.
         try {
+            // DESACTIVAR BOTÓN MIENTRAS SE PROCESA EL REGISTRO.
+            this.submitButton.disabled = true;
+            this.submitButton.textContent = 'REGISTERING...';
+
+            // TEMPORIZADOR DE 6 SEGUNDOS.
+            timeoutId = setTimeout(() => {
+                controller.abort();
+            }, 6000);
+
             // CUARTO PASO: COMPROBAR SI EL CORREO YA ESTÁ REGISTRADO.
             // Realizamos una petición GET al backend.
             // Enviamos el correo como parámetro de la URL.
@@ -497,14 +545,32 @@ class singUpController {
                         // Indicamos que esperamos recibir texto.
                         headers: {
                             'Accept': 'text/plain'
-                        }
+                        },
+                        // CONECTAR LA PETICIÓN CON EL CONTROLADOR.
+                        signal: controller.signal
                     }
             );
 
-            // Comprobamos si el servidor ha respondido correctamente.
+
+            // COMPROBAMOS SI EL SERVIDOR HA RESPONDIDO CORRECTAMENTE.
             if (!emailResponse.ok) {
-                throw new Error('No se ha podido comprobar el correo electrónico.');
+                // SERVICIO NO DISPONIBLE (BASE DE DATOS).
+                if (emailResponse.status === 503) {
+                    throw new Error('El servicio no está disponible temporalmente. Inténtalo más tarde.');
+
+                    // ERROR INTERNO DEL SERVIDOR.
+                } else if (emailResponse.status >= 500) {
+                    throw new Error('Error interno del servidor (HTTP ' + emailResponse.status + '). Inténtalo más tarde.');
+                    // RECURSO NO ENCONTRADO.
+                } else if (emailResponse.status === 404) {
+                    throw new Error('Recurso no encontrado en el servidor (Error 404).');
+
+                    // OTROS ERRORES HTTP.
+                } else {
+                    throw new Error('Error del servidor: HTTP ' + emailResponse.status);
+                }
             }
+
 
             // Leemos la respuesta del servidor.
             // Nuestro método emailExists() devuelve true o false.
@@ -512,10 +578,10 @@ class singUpController {
 
             // Comprobamos si el correo ya está registrado.
             if (emailExists) {
-                // Mostramos un aviso al usuario.
-                alert('Este correo electrónico ya está registrado. Por favor, utiliza otro.');
+                // Mostramos el mensaje de error en el formulario.
+                this.showServerError('Este correo electrónico ya está registrado. Utiliza otro.');
 
-                // Colocamos el foco en el campo del correo.
+                // Colocamos el cursor en el campo del correo.
                 this.email.focus();
 
                 // Detenemos el proceso de registro.
@@ -533,28 +599,67 @@ class singUpController {
                 headers: {'Content-Type': 'application/json', 'Accept': 'application/json'
                 },
                 // Convertimos el objeto userData en una cadena JSON.
-                body: JSON.stringify(userData)
+                body: JSON.stringify(userData),
+
+                // Conectamos la petición POST con el controlador.
+                signal: controller.signal
             });
 
             // Comprobamos si el servidor ha aceptado la petición.
             if (!response.ok) {
-                throw new Error('No se ha podido registrar el usuario.');
+                // ERROR INTERNO DEL SERVIDOR.
+                // SERVICIO NO DISPONIBLE (BASE DE DATOS).
+                if (response.status === 503) {
+                    throw new Error('El servicio no está disponible temporalmente. Inténtalo más tarde.');
+                    // ERROR INTERNO DEL SERVIDOR.
+                } else if (response.status >= 500) {
+                    throw new Error('Error interno del servidor (HTTP ' + response.status + '). Inténtalo más tarde.');
+                    // CORREO ELECTRÓNICO DUPLICADO.
+                } else if (response.status === 409) {
+                    throw new Error('Este correo electrónico ya está registrado.');
+                    // DATOS INCORRECTOS.
+                } else if (response.status === 400) {
+                    throw new Error('Los datos enviados no son válidos. Comprueba la información.');
+                    // RECURSO NO ENCONTRADO.
+                } else if (response.status === 404) {
+                    throw new Error('Recurso no encontrado en el servidor (Error 404).');
+                    // OTROS ERRORES HTTP.
+                } else {
+                    throw new Error('Error del servidor: HTTP ' + response.status);
+                }
             }
 
             // SEXTO PASO: CONFIRMAR EL REGISTRO.
-            // Si la respuesta ha sido correcta, mostramos un mensaje.
-            alert('¡Usuario registrado correctamente!');
+            // Mostramos el mensaje de éxito en el formulario.
+            this.successMessage.textContent = '¡Usuario registrado correctamente!';
+            this.successMessage.style.display = 'block';
 
             // Limpiamos todos los campos del formulario.
             this.form.reset();
 
         } catch (error) {
-            // CONTROL DE ERRORES.
-            // Mostramos el error técnico en la consola del navegador.
+            // MOSTRAR EL ERROR TÉCNICO EN LA CONSOLA.
             console.error('Error en el registro:', error);
 
-            // Mostramos un mensaje comprensible al usuario.
-            alert('Ha ocurrido un error al registrar el usuario. Inténtalo de nuevo.');
+            // TIEMPO DE ESPERA AGOTADO.
+            if (error.name === 'AbortError') {
+                this.showServerError('El servidor está tardando demasiado en responder. Inténtalo más tarde.');
+            }
+            // GLASSFISH APAGADO O SIN CONEXIÓN.
+            else if (error instanceof TypeError) {
+                this.showServerError('No se puede conectar con el servidor. Comprueba que esté disponible.');
+            }
+            // OTROS ERRORES.
+            else {
+                this.showServerError(error.message);
+            }
+        } finally {
+            // LIMPIAR EL TEMPORIZADOR.
+            clearTimeout(timeoutId);
+
+            // RESTAURAR EL BOTÓN DE REGISTRO.
+            this.submitButton.disabled = false;
+            this.submitButton.textContent = 'CREATE ACCOUNT';
         }
     }
 }

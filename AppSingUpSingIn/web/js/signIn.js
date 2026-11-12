@@ -107,7 +107,6 @@ class SingIn {
     // =====================================================
 
     clearError(field) {
-
         const errorElement = field === 'email'
             ? this.emailError
             : this.passwordError;
@@ -115,12 +114,10 @@ class SingIn {
         const inputElement = field === 'email'
             ? this.emailInput
             : this.passwordInput;
-
         inputElement.classList.remove('error');
 
         errorElement.textContent = '';
         errorElement.style.display = 'none';
-
     }
 
     // =====================================================
@@ -128,7 +125,6 @@ class SingIn {
     // =====================================================
 
     togglePassword() {
-
         const isPassword = this.passwordInput.type === 'password';
 
         // CAMBIAR TIPO DEL INPUT
@@ -150,20 +146,16 @@ class SingIn {
 
         // ACTUALIZAR ESTADO VISUAL
         this.passwordToggle.classList.toggle('active', isPassword);
-
     }
 
     // =====================================================
     // INICIAR SESIÓN
     // =====================================================
-
     async handleSubmit(e) {
-
         e.preventDefault();
 
         this.clearError('email');
         this.clearError('password');
-
         this.successMessage.style.display = 'none';
 
         // VALIDAR CAMPOS
@@ -182,7 +174,6 @@ class SingIn {
         let timeoutId;
 
         try {
-
             this.submitButton.disabled = true;
             this.submitButton.textContent = 'LOGGING IN...';
 
@@ -351,7 +342,5 @@ class SingIn {
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-
     new SingIn();
-
 });
