@@ -3,10 +3,12 @@
    1. AJUSTES GENERALES
    ========================================================= */
 
+/* Incluye padding y bordes en el cálculo del tamaño */
 * {
     box-sizing: border-box;
 }
 
+/* Fondo, tipografía y alineación general */
 body {
     font-family: sans-serif;
     display: flex;
@@ -21,7 +23,7 @@ body {
 }
 
 /* =========================================================
-   2. CONTENEDOR Y CABECERA
+   2. CABECERA
    ========================================================= */
 
 .container {
@@ -44,7 +46,7 @@ body {
 }
 
 /* =========================================================
-   3. TARJETAS Y DISTRIBUCIÓN
+   3. TARJETAS Y DISTRIBUCIÓN DE FORMULARIOS
    ========================================================= */
 
 .login-card {
@@ -60,18 +62,20 @@ body {
     width: 100%;
 }
 
+/* Formulario de inicio de sesión */
 .login-form-card {
     max-width: 450px;
     margin: 0 auto;
     grid-template-columns: minmax(0, 1fr);
 }
 
+/* Campos que ocupan todo el ancho */
 .full-width {
     grid-column: 1 / -1;
 }
 
 /* =========================================================
-   4. CAMPOS GENERALES
+   4. CAMPOS DEL FORMULARIO
    ========================================================= */
 
 .field {
@@ -80,6 +84,7 @@ body {
     min-width: 0;
 }
 
+/* Etiquetas */
 .field > span {
     font-size: 0.85rem;
     color: #E0E7FF;
@@ -89,6 +94,7 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Inputs y selectores normales */
 .field input,
 .field select {
     width: 100%;
@@ -103,22 +109,25 @@ body {
     transition: border-color 0.3s;
 }
 
+/* Placeholder */
 .field input::placeholder {
     color: #94A3B8;
 }
 
+/* Estado de foco */
 .field input:focus,
 .field select:focus {
     border-color: #A78BFA;
 }
 
+/* Opciones de los selectores */
 .field select option {
     background-color: #1E293B;
     color: #FFFFFF;
 }
 
 /* =========================================================
-   5. TELÉFONO Y PREFIJO
+   5. TELÉFONO Y PREFIJO INTERNACIONAL
    ========================================================= */
 
 .phone-group {
@@ -128,33 +137,42 @@ body {
     min-width: 0;
 }
 
+/* Selector del prefijo */
 .phone-group select {
     appearance: auto;
     -webkit-appearance: auto;
     -moz-appearance: auto;
+
     flex: 0 0 125px;
     width: 125px;
     min-width: 0;
+
     padding: 12px 15px;
     border-radius: 8px;
+
     background-color: #1E293B;
     border: 1px solid #475569;
     color: #FFFFFF;
+
     font-family: inherit;
     font-size: 1rem;
+
     outline: none;
     cursor: pointer;
 }
 
+/* Foco del selector */
 .phone-group select:focus {
     border-color: #A78BFA;
 }
 
+/* Opciones del prefijo */
 .phone-group select option {
     background-color: #1E293B;
     color: #FFFFFF;
 }
 
+/* Número de teléfono */
 .phone-group input {
     flex: 1 1 auto;
     width: 100%;
@@ -162,7 +180,7 @@ body {
 }
 
 /* =========================================================
-   6. CAMPOS DEL LOGIN
+   6. CAMPOS DEL INICIO DE SESIÓN CON ICONOS
    ========================================================= */
 
 .field-wrapper {
@@ -175,19 +193,19 @@ body {
 .input-row {
     display: flex;
     align-items: center;
-    width: 100%;
     min-width: 0;
     background-color: #1E293B;
     border: 1px solid #475569;
     border-radius: 8px;
     padding: 0 15px;
-    transition: border-color 0.3s;
 }
 
+/* Foco de la fila */
 .input-row:focus-within {
     border-color: #A78BFA;
 }
 
+/* Iconos */
 .input-row .icon {
     flex: 0 0 auto;
     font-size: 1.2rem;
@@ -195,6 +213,7 @@ body {
     color: #A78BFA;
 }
 
+/* Inputs del login */
 .input-row input {
     flex: 1 1 auto;
     min-width: 0;
@@ -207,152 +226,109 @@ body {
     outline: none;
 }
 
+/* Placeholder del login */
 .input-row input::placeholder {
     color: #94A3B8;
 }
 
 /* =========================================================
-   7. CONTRASEÑA Y BOTÓN DEL OJO
+   7. CONTRASEÑAS
    ========================================================= */
 
+/* Contenedor del campo y del icono */
 .password-container {
     position: relative;
-    display: flex;
-    align-items: center;
-    flex: 1 1 auto;
     width: 100%;
     min-width: 0;
 }
 
+/* Inputs de contraseña: mismo estilo que los demás campos */
 .password-container input {
-    flex: 1 1 auto;
+    display: block;
     width: 100%;
     min-width: 0;
-    padding: 15px 45px 15px 0;
-    background: transparent;
-    border: none;
+
+    padding: 12px 45px 12px 15px;
+
+    border-radius: 8px;
+
+    background-color: #1E293B;
+
+    border: 1px solid #475569;
+
     color: #FFFFFF;
+
     font-size: 1rem;
+
     outline: none;
+
+    transition: border-color 0.3s;
 }
 
+/* Placeholder de contraseña */
 .password-container input::placeholder {
     color: #94A3B8;
 }
 
+/* Foco de los campos de contraseña */
+.password-container input:focus {
+    border-color: #A78BFA;
+}
+
+/* Icono para mostrar u ocultar contraseña */
 .password-container .eye {
     position: absolute;
-    right: 5px;
+
+    right: 12px;
     top: 50%;
+
     transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
+
+    font-size: 17px;
+
     cursor: pointer;
-    z-index: 5;
-    transition:
-        background-color 0.25s ease,
-        transform 0.25s ease;
-}
-
-/* Imagen SVG: color morado permanente */
-
-.password-container .eye img {
-    width: 21px;
-    height: 21px;
-    object-fit: contain;
-    display: block;
-    opacity: 1;
-    filter:
-        brightness(0)
-        saturate(100%)
-        invert(47%)
-        sepia(72%)
-        saturate(1500%)
-        hue-rotate(225deg)
-        brightness(105%)
-        contrast(105%);
-    transition:
-        transform 0.25s ease,
-        opacity 0.25s ease;
-}
-
-/* Efecto hover */
-
-.password-container .eye:hover {
-    background-color: rgba(167, 139, 250, 0.10);
-    transform: translateY(-50%) scale(1.05);
-}
-
-.password-container .eye:hover img {
-    opacity: 1;
-    transform: scale(1.08);
-}
-
-/* Contraseña visible: sigue siendo morado */
-
-.password-container .eye.active img {
-    opacity: 1;
-    filter:
-        brightness(0)
-        saturate(100%)
-        invert(47%)
-        sepia(72%)
-        saturate(1500%)
-        hue-rotate(225deg)
-        brightness(105%)
-        contrast(105%);
-}
-
-/* Accesibilidad: teclado */
-
-.password-container .eye:focus-visible {
-    outline: 2px solid #A78BFA;
-    outline-offset: 3px;
-    border-radius: 6px;
-}
-
-/* Efecto al pulsar */
-
-.password-container .eye:active {
-    transform: translateY(-50%) scale(0.94);
 }
 
 /* =========================================================
-   8. MENSAJES DE ERROR Y ÉXITO
+   8. MENSAJES DE ERROR
    ========================================================= */
 
 .error-message {
     display: block;
     width: 100%;
+
     margin-top: 6px;
+
     padding: 10px 12px;
+
     background-color: rgba(15, 23, 42, 0.75);
+
     color: #ff4444;
+
     border-left: 4px solid #ff5555;
+
     border-radius: 4px;
+
     font-size: 0.85rem;
+
     line-height: 1.4;
+
     animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Oculta mensajes vacíos */
-
+/* Ocultar errores vacíos */
 .error-message:empty {
     display: none;
 }
 
+/* Mensajes de éxito */
 .success-message {
+    display: block;
     color: #4ade80;
     border-left-color: #4ade80;
 }
 
+/* Animación de los mensajes */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -399,7 +375,7 @@ body {
 }
 
 /* =========================================================
-   10. BOTONES
+   10. BOTONES Y ENLACES
    ========================================================= */
 
 .buttons {
@@ -410,10 +386,12 @@ body {
     margin-top: 15px;
 }
 
+/* Botones del login en columna */
 .login-form-card .buttons {
     flex-direction: column;
 }
 
+/* Estilo general de botones */
 .btn {
     display: inline-block;
     padding: 12px 25px;
@@ -422,14 +400,17 @@ body {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
+
     transition:
         background-color 0.3s,
         border-color 0.3s;
+
     text-decoration: none;
     text-align: center;
     width: 100%;
 }
 
+/* Botón principal */
 .btn-primary {
     background-color: #8B5CF6;
     color: #FFFFFF;
@@ -441,6 +422,7 @@ body {
     border-color: #7C3AED;
 }
 
+/* Botón secundario */
 .btn-secondary {
     background-color: transparent;
     color: #FFFFFF;
@@ -452,25 +434,24 @@ body {
     border-color: #5EEAD4;
 }
 
+/* Botones deshabilitados */
 .btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
 /* =========================================================
-   11. RESPONSIVE
+   11. ADAPTACIÓN RESPONSIVE
    ========================================================= */
 
 /* Pantallas grandes */
-
 @media (min-width: 701px) {
     .register-card .buttons .btn {
         width: auto;
     }
 }
 
-/* Tablets y móviles */
-
+/* Tabletas y móviles */
 @media (max-width: 700px) {
 
     body {
@@ -506,7 +487,6 @@ body {
 }
 
 /* Móviles muy estrechos */
-
 @media (max-width: 320px) {
 
     .phone-group {
