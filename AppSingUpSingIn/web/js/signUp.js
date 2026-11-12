@@ -1,3 +1,5 @@
+//Version 1.2
+
 class singUpController {
 
     // CONSTRUCTOR
@@ -86,6 +88,44 @@ class singUpController {
                 field.setCustomValidity('');
             });
         });
+
+        // MOSTRAR / OCULTAR CONTRASEÑA
+        this.form.querySelectorAll('.eye').forEach((button) => {
+            button.addEventListener('click', () => this.togglePassword(button));
+        });
+    }
+
+    // =====================================================
+    // MOSTRAR / OCULTAR CONTRASEÑA
+    // =====================================================
+
+    togglePassword(button) {
+
+        const passwordInput = document.getElementById(button.dataset.target);
+        const passwordEyeIcon = button.querySelector('img');
+
+        const isPassword = passwordInput.type === 'password';
+
+        // CAMBIAR TIPO DEL INPUT
+        passwordInput.type = isPassword ? 'text' : 'password';
+
+        // CAMBIAR IMAGEN SVG
+        passwordEyeIcon.src = isPassword
+            ? '/AppSignUpSignIn/images/abierto.svg'
+            : '/AppSignUpSignIn/images/tachado.svg';
+
+        // ACTUALIZAR ACCESIBILIDAD
+        const actionText = isPassword
+            ? 'Ocultar contraseña'
+            : 'Mostrar contraseña';
+
+        button.setAttribute('aria-label', actionText);
+        button.setAttribute('title', actionText);
+        button.setAttribute('aria-pressed', String(isPassword));
+
+        // ACTUALIZAR ESTADO VISUAL
+        button.classList.toggle('active', isPassword);
+
     }
 
     // MÉTODO PARA VALIDAR LOS DATOS DEL FORMULARIO.
