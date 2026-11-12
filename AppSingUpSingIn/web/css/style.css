@@ -321,11 +321,32 @@ body {
     display: none;
 }
 
-/* Mensajes de éxito */
+/* MENSAJES DE ÉXITO */
 .success-message {
     display: block;
+    width: 100%;
+
+    /* Espaciado del mensaje. */
+    margin-top: 6px;
+    padding: 10px 12px;
+
+    /* Fondo y color verde para indicar éxito. */
+    background-color: rgba(15, 23, 42, 0.75);
     color: #4ade80;
-    border-left-color: #4ade80;
+
+    /* Borde lateral verde. */
+    border-left: 4px solid #4ade80;
+    border-radius: 4px;
+
+    /* Tamaño y animación del texto. */
+    font-size: 0.85rem;
+    line-height: 1.4;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* OCULTAR MENSAJES DE ÉXITO VACÍOS */
+.success-message:empty {
+    display: none;
 }
 
 /* Animación de los mensajes */
@@ -333,7 +354,6 @@ body {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
