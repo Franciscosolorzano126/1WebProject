@@ -169,7 +169,7 @@ class SingIn {
         const email = this.emailInput.value.trim();
         const password = this.passwordInput.value;
 
-        const controller = new AbortController();
+      // const controller = new AbortController();
 
         let timeoutId;
 
@@ -178,9 +178,11 @@ class SingIn {
             this.submitButton.textContent = 'LOGGING IN...';
 
             // TEMPORIZADOR DE 6 SEGUNDOS
-            timeoutId = setTimeout(() => {
+           /* timeoutId = setTimeout(() => {
                 controller.abort();
             }, 6000);
+             * 
+            */
 
             // PETICIÓN AL SERVIDOR GLASSFISH
             const response = await fetch(
@@ -189,8 +191,8 @@ class SingIn {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json'
-                    },
-                    signal: controller.signal
+                    }
+                   // signal: controller.signal
                 }
             );
 
