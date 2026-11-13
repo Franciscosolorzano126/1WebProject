@@ -518,10 +518,7 @@ class singUpController {
         const API_URL = 'http://localhost:8080/AppSignUpSignIn/webresources/model.user';
 
         // CONTROLADOR PARA CANCELAR LAS PETICIONES.
-        const controller = new AbortController();
-
-        // VARIABLE PARA GUARDAR EL TEMPORIZADOR.
-        let timeoutId;
+        //const controller = new AbortController();
 
         // Utilizamos try-catch para controlar los posibles errores
         // que puedan producirse durante la comunicación con el servidor.
@@ -529,11 +526,6 @@ class singUpController {
             // DESACTIVAR BOTÓN MIENTRAS SE PROCESA EL REGISTRO.
             this.submitButton.disabled = true;
             this.submitButton.textContent = 'REGISTERING...';
-
-            // TEMPORIZADOR DE 6 SEGUNDOS.
-            timeoutId = setTimeout(() => {
-                controller.abort();
-            }, 6000);
 
             // CUARTO PASO: COMPROBAR SI EL CORREO YA ESTÁ REGISTRADO.
             // Realizamos una petición GET al backend.
@@ -545,12 +537,11 @@ class singUpController {
                         // Indicamos que esperamos recibir texto.
                         headers: {
                             'Accept': 'text/plain'
-                        },
+                        }
                         // CONECTAR LA PETICIÓN CON EL CONTROLADOR.
-                        signal: controller.signal
+                        //signal: controller.signal
                     }
             );
-
 
             // COMPROBAMOS SI EL SERVIDOR HA RESPONDIDO CORRECTAMENTE.
             if (!emailResponse.ok) {
@@ -570,7 +561,6 @@ class singUpController {
                     throw new Error('Error del servidor: HTTP ' + emailResponse.status);
                 }
             }
-
 
             // Leemos la respuesta del servidor.
             // Nuestro método emailExists() devuelve true o false.
@@ -596,13 +586,12 @@ class singUpController {
                 method: 'POST',
 
                 // Indicamos que enviamos información en formato JSON.
-                headers: {'Content-Type': 'application/json', 'Accept': 'application/json'
-                },
+                headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
                 // Convertimos el objeto userData en una cadena JSON.
-                body: JSON.stringify(userData),
+                body: JSON.stringify(userData)
 
                 // Conectamos la petición POST con el controlador.
-                signal: controller.signal
+                //signal: controller.signal
             });
 
             // Comprobamos si el servidor ha aceptado la petición.
@@ -654,9 +643,6 @@ class singUpController {
                 this.showServerError(error.message);
             }
         } finally {
-            // LIMPIAR EL TEMPORIZADOR.
-            clearTimeout(timeoutId);
-
             // RESTAURAR EL BOTÓN DE REGISTRO.
             this.submitButton.disabled = false;
             this.submitButton.textContent = 'CREATE ACCOUNT';
@@ -664,6 +650,7 @@ class singUpController {
     }
 }
 
-// CREAMOS EL CONTROLADOR.
-// Al crear esta instancia, se ejecuta el constructor y se preparan los eventos del formulario.
-const signUp = new singUpController();
+//Instaciamos el controlador en el elemento de carga del DOM
+document.addEventListener('DOMContentLoaded', () => {
+    new singUpController();
+});
