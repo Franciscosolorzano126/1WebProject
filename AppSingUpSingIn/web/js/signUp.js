@@ -76,7 +76,7 @@ class singUpController {
 
         // Escuchamos el evento submit del formulario.
         // Cuando el usuario pulsa el botón de registro,
-        // se ejecuta el método handleSubmit().
+        // se ejecuta handleSubmit().
         this.form.addEventListener('submit', (event) => {
             this.handleSubmit(event);
         });
@@ -135,7 +135,9 @@ class singUpController {
 
     }
 
-    // MÉTODO PARA MOSTRAR ERRORES DEL SERVIDOR.
+    /**
+     * MOSTRAR ERRORES DEL SERVIDOR.
+     */
     showServerError(message) {
 
         // Mostramos el mensaje de error en el HTML.
@@ -149,7 +151,9 @@ class singUpController {
         this.successMessage.style.display = 'none';
     }
 
-    // MÉTODO PARA LIMPIAR LOS MENSAJES DEL SERVIDOR.
+    /**
+     * PARA LIMPIAR LOS MENSAJES DEL SERVIDOR.
+     */
     clearServerMessages() {
         // Eliminamos el mensaje de error anterior.
         this.serverError.textContent = '';
@@ -160,7 +164,7 @@ class singUpController {
         this.successMessage.style.display = 'none';
     }
 
-    // MÉTODO PARA VALIDAR LOS DATOS DEL FORMULARIO.
+    //  PARA VALIDAR LOS DATOS DEL FORMULARIO.
     validateForm() {
 
         // Variable que indica si el formulario es válido.
@@ -470,9 +474,16 @@ class singUpController {
         // false: existe algún campo con errores.
         return valid;
     }
-
-    // MÉTODO QUE GESTIONA EL ENVÍO DEL FORMULARIO.
-    // Utilizamos async porque realizaremos peticiones a la API REST.
+    /**
+     * GESTIONA EL ENVÍO DEL FORMULARIO.
+     * Utilizamos async porque realizaremos peticiones a la API REST.
+     * @todo: usar clase User para encapsular los datos del nuevo usuario antes 
+     *        de registrarlo en lugar de la variable userData.
+     * @todo: después de un signup exitoso guardar en el sessionStorage el email 
+     *        para que lo cargue la página de sigIn.
+     * @param {type} event
+     * @returns {undefined}
+     */
     async handleSubmit(event) {
         // LIMPIAR LOS MENSAJES DE OPERACIONES ANTERIORES.
         this.clearServerMessages();
@@ -481,7 +492,7 @@ class singUpController {
         event.preventDefault();
 
         // PRIMER PASO: VALIDAR EL FORMULARIO.
-        // Ejecutamos el método validateForm().
+        // Ejecutamos el  validateForm().
         if (!this.validateForm()) {
             // Si hay errores, detenemos el proceso de registro.
             return;
@@ -515,6 +526,8 @@ class singUpController {
 
         // TERCER PASO: DEFINIR LA DIRECCIÓN DE LA API REST.
         // Esta es la URL base de nuestro servicio UserFacadeREST.
+        //FIXME: Cambiar el valor de la URL haciendo que sea relativo a la raiz del
+        //servidor, es decir, quitar protocol://server:port
         const API_URL = 'http://localhost:8080/AppSignUpSignIn/webresources/model.user';
 
         // CONTROLADOR PARA CANCELAR LAS PETICIONES.
@@ -563,7 +576,7 @@ class singUpController {
             }
 
             // Leemos la respuesta del servidor.
-            // Nuestro método emailExists() devuelve true o false.
+            // Nuestro  emailExists() devuelve true o false.
             const emailExists = (await emailResponse.text()).trim() === 'true';
 
             // Comprobamos si el correo ya está registrado.
