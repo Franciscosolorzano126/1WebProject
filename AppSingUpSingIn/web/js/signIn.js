@@ -2,7 +2,11 @@
 // VERSION 1.5
 
 import { User } from './user.js';
-
+/**
+ * @todo: al cargar la página comprobar si está almacenado el email de un usuario 
+ * en el sessionStorage y cargarlo en el campo email del formulario.
+ * @type SingIn
+ */
 class SingIn {
 
     constructor() {
@@ -150,8 +154,8 @@ class SingIn {
 
     /**
      * 
-     * @todo: almacenar en el sessionStorage todos los datos del User que ha 
-     * abierto sesión, no solo email,id,name y surname.
+     * @todo: Si la respuesta del fecth es OK almacenar en el sessionStorage todos 
+     * los datos del User que ha abierto sesión, no solo email,id,name y surname.
      * @param {type} e
      * @returns {undefined}
      */
@@ -189,6 +193,8 @@ class SingIn {
             */
 
             // PETICIÓN AL SERVIDOR GLASSFISH
+            //FIXME: Cambiar el valor de la URL haciendo que sea relativo a la 
+            //raíz del servidor, es decir, quitar protocol://server:port
             const response = await fetch(
                 'http://localhost:8080/AppSignUpSignIn/webresources/model.user',
                 {
