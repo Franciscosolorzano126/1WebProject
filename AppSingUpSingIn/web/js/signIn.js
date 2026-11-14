@@ -148,9 +148,13 @@ class SingIn {
         this.passwordToggle.classList.toggle('active', isPassword);
     }
 
-    // =====================================================
-    // INICIAR SESIÓN
-    // =====================================================
+    /**
+     * 
+     * @todo: almacenar en el sessionStorage todos los datos del User que ha 
+     * abierto sesión, no solo email,id,name y surname.
+     * @param {type} e
+     * @returns {undefined}
+     */
     async handleSubmit(e) {
         e.preventDefault();
 
