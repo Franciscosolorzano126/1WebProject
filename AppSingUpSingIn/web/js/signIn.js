@@ -1,5 +1,5 @@
 
-// VERSION 1.5
+// VERSION 1.13
 
 import { User } from './user.js';
 /**
@@ -38,12 +38,36 @@ class SingIn {
 
         // MOSTRAR / OCULTAR CONTRASEÑA
         this.passwordToggle.addEventListener('click', () => this.togglePassword());
+        
+        //EMAIL GURADADO
+        
+        
+        
+        
 
     }
+    
+    // =====================================================
+    // COMPROBAR SI EL MAIL ESTA GUARDADO
+    // =====================================================
+    
+    
+    saveEmail(){
+        if (sessionStorage.getItem(email) ){
+            
+        }
+            
+    }
+    
+    
+    
 
     // =====================================================
     // VALIDAR EMAIL
     // =====================================================
+    
+    
+    
 
     validateEmail() {
 
@@ -195,8 +219,13 @@ class SingIn {
             // PETICIÓN AL SERVIDOR GLASSFISH
             //FIXME: Cambiar el valor de la URL haciendo que sea relativo a la 
             //raíz del servidor, es decir, quitar protocol://server:port
-            const response = await fetch(
-                'http://localhost:8080/AppSignUpSignIn/webresources/model.user',
+            
+            
+            const API_URL = '/AppSignUpSignIn/webresources/model.user';
+            
+            const response = await fetch(API_URL,
+
+                
                 {
                     method: 'GET',
                     headers: {
@@ -292,7 +321,17 @@ class SingIn {
                 id: user.id,
                 email: user.email,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                middleIntial: user.middleIntial,
+                street: user.street,
+                city: user.city,
+                state: user.state,
+                zip: user.zip,
+                phone:user.phone,
+                password: user.password
+                
+                
+                
             }));
 
             // REDIRECCIÓN
