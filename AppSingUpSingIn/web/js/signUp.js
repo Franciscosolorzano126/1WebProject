@@ -1,5 +1,5 @@
 //Version 1.2
-
+import { User } from "/AppSingUpSingIn/web/js/user.js"
 class singUpController {
 
     // CONSTRUCTOR
@@ -477,9 +477,9 @@ class singUpController {
     /**
      * GESTIONA EL ENVÍO DEL FORMULARIO.
      * Utilizamos async porque realizaremos peticiones a la API REST.
-     * @todo: usar clase User para encapsular los datos del nuevo usuario antes 
+     * usar clase User para encapsular los datos del nuevo usuario antes 
      *        de registrarlo en lugar de la variable userData.
-     * @todo: después de un signup exitoso guardar en el sessionStorage el email 
+     *  después de un signup exitoso guardar en el sessionStorage el email 
      *        para que lo cargue la página de sigIn.
      * @param {type} event
      * @returns {undefined}
@@ -497,10 +497,13 @@ class singUpController {
             // Si hay errores, detenemos el proceso de registro.
             return;
         }
-
+        
+        // @todo:Usar clase User para encapsular los datos del nuevo usuario antes de registrarlo en lugar de la variable userData.
+        const user = new User(null, firstName, lastName, middleIntial, street, city, state, zip, phone, email, password);
+        
         // SEGUNDO PASO: RECOGER LOS DATOS DEL FORMULARIO.
         // Creamos un objeto con los datos que enviaremos al backend.
-        const userData = {
+        /*const userData = {
             // Datos personales.
             firstName: this.firstName.value.trim(),
             lastName: this.lastName.value.trim(),
@@ -522,13 +525,13 @@ class singUpController {
             // Datos de acceso.
             email: this.email.value.trim(),
             password: this.password.value
-        };
+        };*/
 
         // TERCER PASO: DEFINIR LA DIRECCIÓN DE LA API REST.
         // Esta es la URL base de nuestro servicio UserFacadeREST.
         //FIXME: Cambiar el valor de la URL haciendo que sea relativo a la raiz del
         //servidor, es decir, quitar protocol://server:port
-        const API_URL = 'http://localhost:8080/AppSignUpSignIn/webresources/model.user';
+        const API_URL = '/AppSignUpSignIn/webresources/model.user';
 
         // CONTROLADOR PARA CANCELAR LAS PETICIONES.
         //const controller = new AbortController();
@@ -543,7 +546,7 @@ class singUpController {
             // CUARTO PASO: COMPROBAR SI EL CORREO YA ESTÁ REGISTRADO.
             // Realizamos una petición GET al backend.
             // Enviamos el correo como parámetro de la URL.
-            const emailResponse = await fetch(`${API_URL}/email?email=${encodeURIComponent(userData.email)}`,
+            const emailResponse = await fetch(`${API_URL}/email?email=${encodeURIComponent(user.email)}`,
                     {
                         // GET se utiliza para consultar información.
                         method: 'GET',
@@ -601,7 +604,7 @@ class singUpController {
                 // Indicamos que enviamos información en formato JSON.
                 headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
                 // Convertimos el objeto userData en una cadena JSON.
-                body: JSON.stringify(userData)
+                body: JSON.stringify(user)
 
                 // Conectamos la petición POST con el controlador.
                 //signal: controller.signal
@@ -635,6 +638,11 @@ class singUpController {
             // Mostramos el mensaje de éxito en el formulario.
             this.successMessage.textContent = '¡Usuario registrado correctamente!';
             this.successMessage.style.display = 'block';
+            
+            //@todo: después de un signup exitoso guardar en el sessionStorage el email para que lo cargue la página de sigIn.
+            sessionStorage.setItem('user.email', JSON.stringify({
+               email: user.email
+            }));
 
             // Limpiamos todos los campos del formulario.
             this.form.reset();
