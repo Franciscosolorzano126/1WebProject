@@ -1,6 +1,6 @@
 //Version 1.2
-
-class singUpController {
+import { User } from "/AppSingUpSingIn/web/js/user.js"
+        class singUpController {
 
     // CONSTRUCTOR
     // Se ejecuta automáticamente cuando creamos el controlador.
@@ -76,7 +76,7 @@ class singUpController {
 
         // Escuchamos el evento submit del formulario.
         // Cuando el usuario pulsa el botón de registro,
-        // se ejecuta el método handleSubmit().
+        // se ejecuta handleSubmit().
         this.form.addEventListener('submit', (event) => {
             this.handleSubmit(event);
         });
@@ -118,13 +118,13 @@ class singUpController {
 
         // CAMBIAR IMAGEN SVG
         passwordEyeIcon.src = isPassword
-            ? '/AppSignUpSignIn/images/abierto.svg'
-            : '/AppSignUpSignIn/images/tachado.svg';
+                ? '/AppSignUpSignIn/images/abierto.svg'
+                : '/AppSignUpSignIn/images/tachado.svg';
 
         // ACTUALIZAR ACCESIBILIDAD
         const actionText = isPassword
-            ? 'Ocultar contraseña'
-            : 'Mostrar contraseña';
+                ? 'Ocultar contraseña'
+                : 'Mostrar contraseña';
 
         button.setAttribute('aria-label', actionText);
         button.setAttribute('title', actionText);
@@ -135,7 +135,9 @@ class singUpController {
 
     }
 
-    // MÉTODO PARA MOSTRAR ERRORES DEL SERVIDOR.
+    /**
+     * MOSTRAR ERRORES DEL SERVIDOR.
+     */
     showServerError(message) {
 
         // Mostramos el mensaje de error en el HTML.
@@ -149,7 +151,9 @@ class singUpController {
         this.successMessage.style.display = 'none';
     }
 
-    // MÉTODO PARA LIMPIAR LOS MENSAJES DEL SERVIDOR.
+    /**
+     * PARA LIMPIAR LOS MENSAJES DEL SERVIDOR.
+     */
     clearServerMessages() {
         // Eliminamos el mensaje de error anterior.
         this.serverError.textContent = '';
@@ -160,7 +164,7 @@ class singUpController {
         this.successMessage.style.display = 'none';
     }
 
-    // MÉTODO PARA VALIDAR LOS DATOS DEL FORMULARIO.
+    //  PARA VALIDAR LOS DATOS DEL FORMULARIO.
     validateForm() {
 
         // Variable que indica si el formulario es válido.
@@ -470,9 +474,16 @@ class singUpController {
         // false: existe algún campo con errores.
         return valid;
     }
-
-    // MÉTODO QUE GESTIONA EL ENVÍO DEL FORMULARIO.
-    // Utilizamos async porque realizaremos peticiones a la API REST.
+    /**
+     * GESTIONA EL ENVÍO DEL FORMULARIO.
+     * Utilizamos async porque realizaremos peticiones a la API REST.
+     * usar clase User para encapsular los datos del nuevo usuario antes 
+     *        de registrarlo en lugar de la variable userData.
+     *  después de un signup exitoso guardar en el sessionStorage el email 
+     *        para que lo cargue la página de sigIn.
+     * @param {type} event
+     * @returns {undefined}
+     */
     async handleSubmit(event) {
         // LIMPIAR LOS MENSAJES DE OPERACIONES ANTERIORES.
         this.clearServerMessages();
@@ -481,41 +492,46 @@ class singUpController {
         event.preventDefault();
 
         // PRIMER PASO: VALIDAR EL FORMULARIO.
-        // Ejecutamos el método validateForm().
+        // Ejecutamos el  validateForm().
         if (!this.validateForm()) {
             // Si hay errores, detenemos el proceso de registro.
             return;
         }
 
+        // @todo:Usar clase User para encapsular los datos del nuevo usuario antes de registrarlo en lugar de la variable userData.
+        const user = new User(null, firstName, lastName, middleIntial, street, city, state, zip, phone, email, password);
+
         // SEGUNDO PASO: RECOGER LOS DATOS DEL FORMULARIO.
         // Creamos un objeto con los datos que enviaremos al backend.
-        const userData = {
-            // Datos personales.
-            firstName: this.firstName.value.trim(),
-            lastName: this.lastName.value.trim(),
-            middleInitial: this.middleInitial.value.trim(),
-
-            // Convertimos el teléfono en un número.
-            // Eliminamos previamente espacios y otros caracteres.
-            phone: Number(this.phone.value.replace(/\D/g, '')),
-
-            // Datos de dirección.
-            street: this.street.value.trim(),
-            city: this.city.value.trim(),
-            state: this.state.value.trim(),
-
-            // Convertimos el código postal en número
-            // porque en Java está definido como Integer.
-            zip: Number(this.zip.value.trim()),
-
-            // Datos de acceso.
-            email: this.email.value.trim(),
-            password: this.password.value
-        };
+        /*const userData = {
+         // Datos personales.
+         firstName: this.firstName.value.trim(),
+         lastName: this.lastName.value.trim(),
+         middleInitial: this.middleInitial.value.trim(),
+         
+         // Convertimos el teléfono en un número.
+         // Eliminamos previamente espacios y otros caracteres.
+         phone: Number(this.phone.value.replace(/\D/g, '')),
+         
+         // Datos de dirección.
+         street: this.street.value.trim(),
+         city: this.city.value.trim(),
+         state: this.state.value.trim(),
+         
+         // Convertimos el código postal en número
+         // porque en Java está definido como Integer.
+         zip: Number(this.zip.value.trim()),
+         
+         // Datos de acceso.
+         email: this.email.value.trim(),
+         password: this.password.value
+         };*/
 
         // TERCER PASO: DEFINIR LA DIRECCIÓN DE LA API REST.
         // Esta es la URL base de nuestro servicio UserFacadeREST.
-        const API_URL = 'http://localhost:8080/AppSignUpSignIn/webresources/model.user';
+        //FIXME: Cambiar el valor de la URL haciendo que sea relativo a la raiz del
+        //servidor, es decir, quitar protocol://server:port
+        const API_URL = '/AppSignUpSignIn/webresources/model.user';
 
         // CONTROLADOR PARA CANCELAR LAS PETICIONES.
         //const controller = new AbortController();
@@ -530,7 +546,7 @@ class singUpController {
             // CUARTO PASO: COMPROBAR SI EL CORREO YA ESTÁ REGISTRADO.
             // Realizamos una petición GET al backend.
             // Enviamos el correo como parámetro de la URL.
-            const emailResponse = await fetch(`${API_URL}/email?email=${encodeURIComponent(userData.email)}`,
+            const emailResponse = await fetch(`${API_URL}/email?email=${encodeURIComponent(user.email)}`,
                     {
                         // GET se utiliza para consultar información.
                         method: 'GET',
@@ -563,7 +579,7 @@ class singUpController {
             }
 
             // Leemos la respuesta del servidor.
-            // Nuestro método emailExists() devuelve true o false.
+            // Nuestro  emailExists() devuelve true o false.
             const emailExists = (await emailResponse.text()).trim() === 'true';
 
             // Comprobamos si el correo ya está registrado.
@@ -588,10 +604,10 @@ class singUpController {
                 // Indicamos que enviamos información en formato JSON.
                 headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
                 // Convertimos el objeto userData en una cadena JSON.
-                body: JSON.stringify(userData)
+                body: JSON.stringify(user)
 
-                // Conectamos la petición POST con el controlador.
-                //signal: controller.signal
+                        // Conectamos la petición POST con el controlador.
+                        //signal: controller.signal
             });
 
             // Comprobamos si el servidor ha aceptado la petición.
@@ -622,6 +638,11 @@ class singUpController {
             // Mostramos el mensaje de éxito en el formulario.
             this.successMessage.textContent = '¡Usuario registrado correctamente!';
             this.successMessage.style.display = 'block';
+
+            //@todo: después de un signup exitoso guardar en el sessionStorage el email para que lo cargue la página de sigIn.
+            sessionStorage.setItem('user.email', JSON.stringify({
+                email: user.email
+            }));
 
             // Limpiamos todos los campos del formulario.
             this.form.reset();
