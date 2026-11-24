@@ -1,8 +1,12 @@
 
-// VERSION 1.5
+// VERSION 1.13
 
 import { User } from './user.js';
-
+/**
+ * @todo: al cargar la página comprobar si está almacenado el email de un usuario 
+ * en el sessionStorage y cargarlo en el campo email del formulario.
+ * @type SingIn
+ */
 class SingIn {
 
     constructor() {
@@ -34,12 +38,21 @@ class SingIn {
 
         // MOSTRAR / OCULTAR CONTRASEÑA
         this.passwordToggle.addEventListener('click', () => this.togglePassword());
+        
+        //EMAIL GURADADO
+        
+        
+        
+        
 
     }
-
+    
     // =====================================================
     // VALIDAR EMAIL
     // =====================================================
+    
+    
+    
 
     validateEmail() {
 
@@ -148,9 +161,13 @@ class SingIn {
         this.passwordToggle.classList.toggle('active', isPassword);
     }
 
-    // =====================================================
-    // INICIAR SESIÓN
-    // =====================================================
+    /**
+     * 
+     * @todo: Si la respuesta del fecth es OK almacenar en el sessionStorage todos 
+     * los datos del User que ha abierto sesión, no solo email,id,name y surname.
+     * @param {type} e
+     * @returns {undefined}
+     */
     async handleSubmit(e) {
         e.preventDefault();
 
@@ -185,8 +202,15 @@ class SingIn {
             */
 
             // PETICIÓN AL SERVIDOR GLASSFISH
-            const response = await fetch(
-                'http://localhost:8080/AppSignUpSignIn/webresources/model.user',
+            //FIXME: Cambiar el valor de la URL haciendo que sea relativo a la 
+            //raíz del servidor, es decir, quitar protocol://server:port
+            
+            
+            const API_URL = '/AppSignUpSignIn/webresources/model.user';
+            
+            const response = await fetch(API_URL,
+
+                
                 {
                     method: 'GET',
                     headers: {
@@ -282,7 +306,17 @@ class SingIn {
                 id: user.id,
                 email: user.email,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                middleIntial: user.middleIntial,
+                street: user.street,
+                city: user.city,
+                state: user.state,
+                zip: user.zip,
+                phone:user.phone,
+                password: user.password
+                
+                
+                
             }));
 
             // REDIRECCIÓN
