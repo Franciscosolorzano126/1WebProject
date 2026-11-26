@@ -1,4 +1,3 @@
-
 package model;
 
 import jakarta.persistence.Column;
@@ -11,6 +10,9 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import java.util.ArrayList;
 import java.io.Serializable;
 import java.math.BigInteger;
 
@@ -32,6 +34,19 @@ import java.math.BigInteger;
     @NamedQuery(name = "User.findByStreet", query = "SELECT u FROM User u WHERE u.street = :street")
 })
 public class User implements Serializable {
+
+    // Relación: un usuario puede escribir muchas reseñas.
+    // mappedBy indica que la relación se gestiona desde Review.
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 
     private static final long serialVersionUID = 1L;
 
