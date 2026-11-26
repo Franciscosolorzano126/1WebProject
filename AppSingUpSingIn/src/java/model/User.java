@@ -1,21 +1,34 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package model;
 
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.persistence.OneToMany;
-import java.util.List;
-import java.util.ArrayList;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.List;
 
+/**
+ *
+ * @author madrid
+ */
 @Entity
 @Table(name = "user")
 @XmlRootElement
@@ -31,77 +44,65 @@ import java.math.BigInteger;
     @NamedQuery(name = "User.findByMiddleInitial", query = "SELECT u FROM User u WHERE u.middleInitial = :middleInitial"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByState", query = "SELECT u FROM User u WHERE u.state = :state"),
-    @NamedQuery(name = "User.findByStreet", query = "SELECT u FROM User u WHERE u.street = :street")
-})
+    @NamedQuery(name = "User.findByStreet", query = "SELECT u FROM User u WHERE u.street = :street"),
+    @NamedQuery(name = "User.findByRol", query = "SELECT u FROM User u WHERE u.rol = :rol")})
 public class User implements Serializable {
 
-    // Relación: un usuario puede escribir muchas reseñas.
-    // mappedBy indica que la relación se gestiona desde Review.
-    @OneToMany(mappedBy = "user")
-    private List<Review> reviews = new ArrayList<>();
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
     private static final long serialVersionUID = 1L;
-
     @Column(name = "zip")
     private Integer zip;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
-
     @Column(name = "phone")
     private BigInteger phone;
-
     @Size(max = 255)
     @Column(name = "city")
     private String city;
-
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
     @Column(name = "email")
     private String email;
-
     @Size(max = 255)
     @Column(name = "firstName")
     private String firstName;
-
     @Size(max = 255)
     @Column(name = "lastName")
     private String lastName;
-
     @Size(max = 255)
     @Column(name = "middleInitial")
     private String middleInitial;
-
     @Size(max = 255)
     @Column(name = "password")
     private String password;
-
     @Size(max = 255)
     @Column(name = "state")
     private String state;
-
     @Size(max = 255)
     @Column(name = "street")
     private String street;
-
-    // Por defecto, todos los usuarios nuevos tendrán el rol user.
-    @Column(name = "rol", nullable = false)
-    private String rol = "user";
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "rol")
+    private String rol;
+    @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
+    private List<Movie> movieList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.EAGER)
+    private List<Review> reviewList;
 
     public User() {
     }
 
     public User(Long id) {
         this.id = id;
+    }
+
+    public User(Long id, String rol) {
+        this.id = id;
+        this.rol = rol;
     }
 
     public Integer getZip() {
@@ -200,6 +201,24 @@ public class User implements Serializable {
         this.rol = rol;
     }
 
+    @XmlTransient
+    public List<Movie> getMovieList() {
+        return movieList;
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.movieList = movieList;
+    }
+
+    @XmlTransient
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -209,17 +228,14 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof User)) {
             return false;
         }
-
         User other = (User) object;
-
-        if ((this.id == null && other.id != null)
-                || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-
         return true;
     }
 
@@ -227,4 +243,5 @@ public class User implements Serializable {
     public String toString() {
         return "model.User[ id=" + id + " ]";
     }
+    
 }

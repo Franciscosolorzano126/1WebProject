@@ -28,6 +28,8 @@ public class ApplicationConfig extends jakarta.ws.rs.core.Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(service.UserFacadeREST.class);
+        resources.add(service.MovieFacadeREST.class);
+        resources.add(service.ReviewFacadeREST.class);
     }
     
 }
