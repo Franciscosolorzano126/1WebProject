@@ -1,4 +1,3 @@
-
 package service;
 
 import jakarta.ejb.Stateless;
@@ -33,6 +32,8 @@ public class UserFacadeREST extends AbstractFacade<User> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(User entity) {
+        // Los usuarios que se registran desde el formulariosiempre tendrán el rol user.
+        entity.setRol("user");
         super.create(entity);
     }
 

@@ -1,4 +1,3 @@
-
 package model;
 
 import jakarta.persistence.Column;
@@ -11,6 +10,9 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import java.util.ArrayList;
 import java.io.Serializable;
 import java.math.BigInteger;
 
@@ -33,12 +35,24 @@ import java.math.BigInteger;
 })
 public class User implements Serializable {
 
+    // Relación: un usuario puede escribir muchas reseñas.
+    // mappedBy indica que la relación se gestiona desde Review.
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     private static final long serialVersionUID = 1L;
 
     @Column(name = "zip")
     private Integer zip;
 
-    // Clave primaria generada automáticamente por MySQL.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -79,11 +93,13 @@ public class User implements Serializable {
     @Column(name = "street")
     private String street;
 
-    // Constructor vacío necesario para JPA.
+    // Por defecto, todos los usuarios nuevos tendrán el rol user.
+    @Column(name = "rol", nullable = false)
+    private String rol = "user";
+
     public User() {
     }
 
-    // Constructor con ID.
     public User(Long id) {
         this.id = id;
     }
@@ -174,6 +190,14 @@ public class User implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @Override

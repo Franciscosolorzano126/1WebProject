@@ -38,7 +38,6 @@ public class User implements Serializable {
     @Column(name = "zip")
     private Integer zip;
 
-    // Clave primaria generada automáticamente por MySQL.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -79,11 +78,13 @@ public class User implements Serializable {
     @Column(name = "street")
     private String street;
 
-    // Constructor vacío necesario para JPA.
+    // Por defecto, todos los usuarios nuevos tendrán el rol user.
+    @Column(name = "rol", nullable = false)
+    private String rol = "user";
+
     public User() {
     }
 
-    // Constructor con ID.
     public User(Long id) {
         this.id = id;
     }
@@ -174,6 +175,14 @@ public class User implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @Override
